@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
 
 class MapsPage extends StatefulWidget {
   @override
@@ -11,22 +11,14 @@ class MapsPage extends StatefulWidget {
 }
 
 class _MapsPageState extends State<MapsPage> {
-  late Position userLocation;
   late GoogleMapController mapController;
-
   late CameraPosition kGooglePlex;
 
+  late Position userLocation;
+
   List<Marker> myMarker = [];
-
-  // late final Set<Marker> _markers = {
-  //   Marker(
-  //       markerId: MarkerId("id"),
-  //       icon: BitmapDescriptor.defaultMarker,
-  //       position: LatLng(userLocation.latitude, userLocation.longitude),
-  //       onTap: () {})
-  // };
-
-  late LatLng point = LatLng(userLocation.latitude, userLocation.longitude);
+  late LatLng point;
+  String _currentAddress = '';
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -60,13 +52,30 @@ class _MapsPageState extends State<MapsPage> {
   }
 
   void _onAddMarkerButtonPressed(LatLng tappedPoint) {
-    myMarker = [];
     setState(() {
+      myMarker = [];
       myMarker.add(Marker(
         markerId: MarkerId(tappedPoint.toString()),
         position: tappedPoint,
       ));
     });
+    point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
+  }
+
+  _getAddress() async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(point.latitude, point.longitude);
+
+      Placemark place = placemarks[0];
+
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.postalCode}, ${place.country}";
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -110,8 +119,8 @@ class _MapsPageState extends State<MapsPage> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                content: Text(
-                    'Your location has been send !\nlat: ${userLocation.latitude} long: ${userLocation.longitude} '),
+                content:
+                    Text('Your location has been send !\n${_currentAddress}  '),
               );
             },
           );
