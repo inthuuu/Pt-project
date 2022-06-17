@@ -1,10 +1,11 @@
 import 'package:drone_for_smart_farming/HomeScreen.dart';
 import 'package:drone_for_smart_farming/map.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:flutter/material.dart';
+import 'model/profile.dart';
 
 enum MobileVerificationState {
   SHOW_MOBILE_FROM_STATE,
@@ -83,15 +84,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() {
                     showLoading = false;
                   });
-                  var verificationFailed; //????????
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(verificationFailed.message)));
+                  //var verificationFailed; //????????
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("${PhoneVerificationFailed.message}")));
                 },
                 codeSent: (verificationId, resendingToken) async {
                   setState(() {
                     showLoading = false;
-                    currentState =
-                        MobileVerificationState.SHOW_OTP_FROM_STATE;
+                    currentState = MobileVerificationState.SHOW_OTP_FROM_STATE;
                     this.verificationId = verificationId;
                   });
                 },

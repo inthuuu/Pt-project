@@ -40,8 +40,11 @@
         <meta-data 
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCUk9-9SOgcWJNMpNV8tGncMsVhnqnhNf8"/>
+<<<<<<< HEAD
             <meta-data  android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+=======
+>>>>>>> e819d127456721aaf41aec66beb42a0453fc64d6
 
     </application>
 </manifest>

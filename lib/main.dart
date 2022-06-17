@@ -5,6 +5,7 @@ import 'package:drone_for_smart_farming/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'HomeScreen.dart';
 
 void main() async {
