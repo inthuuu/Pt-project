@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -10,17 +11,14 @@ class MapsPage extends StatefulWidget {
 }
 
 class _MapsPageState extends State<MapsPage> {
-  late Position userLocation;
   late GoogleMapController mapController;
   late CameraPosition kGooglePlex;
 
-  late Set<Marker> _markers = {
-    Marker(
-        markerId: MarkerId("id"),
-        icon: BitmapDescriptor.defaultMarker,
-        position: LatLng(userLocation.latitude, userLocation.longitude),
-        onTap: () {})
-  };
+  late Position userLocation;
+
+  List<Marker> myMarker = [];
+  late LatLng point;
+  String _currentAddress = '';
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -53,14 +51,32 @@ class _MapsPageState extends State<MapsPage> {
     return userLocation;
   }
 
-  // void _onAddMarkerButtonPressed(LatLng latlang) {
-  //   setState(() {
-  //     _markers.add(Marker(
-  //       markerId: MarkerId("id"),
-  //       position:
-  //     ));
-  //   });
-  // }
+  void _onAddMarkerButtonPressed(LatLng tappedPoint) {
+    setState(() {
+      myMarker = [];
+      myMarker.add(Marker(
+        markerId: MarkerId(tappedPoint.toString()),
+        position: tappedPoint,
+      ));
+    });
+    point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
+  }
+
+  _getAddress() async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(point.latitude, point.longitude);
+
+      Placemark place = placemarks[0];
+
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.postalCode}, ${place.country}";
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,16 +89,16 @@ class _MapsPageState extends State<MapsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return GoogleMap(
-              mapType: MapType.hybrid,
-              onMapCreated: _onMapCreated,
-              myLocationEnabled: true,
-              zoomControlsEnabled: true,
-              initialCameraPosition: CameraPosition(
-                  target: LatLng(userLocation.latitude, userLocation.longitude),
-                  zoom: 15),
-              markers: _markers,
-              onTap: (LatLng) {},
-            );
+                mapType: MapType.hybrid,
+                onMapCreated: _onMapCreated,
+                myLocationEnabled: true,
+                zoomControlsEnabled: true,
+                initialCameraPosition: CameraPosition(
+                    target:
+                        LatLng(userLocation.latitude, userLocation.longitude),
+                    zoom: 15),
+                markers: Set.from(myMarker),
+                onTap: _onAddMarkerButtonPressed);
           } else {
             return Center(
               child: Column(
@@ -103,8 +119,8 @@ class _MapsPageState extends State<MapsPage> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                content: Text(
-                    'Your location has been send !\nlat: ${userLocation.latitude} long: ${userLocation.longitude} '),
+                content:
+                    Text('Your location has been send !\n${_currentAddress}  '),
               );
             },
           );
