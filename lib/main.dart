@@ -1,9 +1,8 @@
 import 'package:drone_for_smart_farming/login.dart';
-// ignore_for_file: prefer_const_constructors
-
 import 'package:drone_for_smart_farming/drawPolygon.dart';
 import 'package:drone_for_smart_farming/map.dart';
 import 'package:drone_for_smart_farming/HomeScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'HomeScreen.dart';
@@ -13,18 +12,50 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
-class MyApp extends StatelessWidget {
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "My App",
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        title: "My App",
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: InitializerWidget());
+  }
+}
+
+class InitializerWidget extends StatefulWidget {
+  @override
+  _InitializerWidgetState createState() => _InitializerWidgetState();
+}
+
+class _InitializerWidgetState extends State<InitializerWidget> {
+
+  late FirebaseAuth _auth;
+
+  User? _user;
+
+  bool isLoading = true;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _auth = FirebaseAuth.instance;
+    _user = _auth.currentUser;
+    isLoading = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading ? Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: LoginScreen()
-    );
+    ) : _user == null ? LoginScreen() : HomeScreen();
   }
 }

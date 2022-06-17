@@ -17,10 +17,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final currentState = TextEditingController();
-
-  final phoneController = TextEditingController();
-  final otpController = TextEditingController();
+  // final currentState = TextEditingController();
+  // final phoneController = TextEditingController();
+  // final otpController = TextEditingController();
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -32,7 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await _auth.signOut();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MapsPage()));
         },
         child: Icon(Icons.logout),
       ),
