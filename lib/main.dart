@@ -1,8 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_import
-
 import 'package:drone_for_smart_farming/map.dart';
-import 'package:drone_for_smart_farming/mapSample.dart';
-import 'package:drone_for_smart_farming/test.dart';
 import 'package:flutter/material.dart';
 
 void main() {
