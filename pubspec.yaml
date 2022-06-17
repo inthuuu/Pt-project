@@ -48,6 +48,11 @@ dependencies:
   google_maps_flutter: ^2.1.8
   geolocator: ^8.2.1
   geocoding: ^2.0.4
+  firebase_auth: ^3.3.20
+  cloud_firestore: ^3.1.18
+  fluttertoast: ^8.0.9
+  profile: ^0.0.1
+  form_field_validator: ^1.1.0
 
 
 
@@ -80,6 +85,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - image/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

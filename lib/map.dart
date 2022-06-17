@@ -72,6 +72,8 @@ class _MapsPageState extends State<MapsPage> {
       setState(() {
         _currentAddress =
             "${place.locality}, ${place.postalCode}, ${place.country}";
+
+        placemarks = [];
       });
     } catch (e) {
       print(e);
@@ -115,12 +117,13 @@ class _MapsPageState extends State<MapsPage> {
         onPressed: () {
           mapController.animateCamera(CameraUpdate.newLatLngZoom(
               LatLng(userLocation.latitude, userLocation.longitude), 18));
+          _getAddress();
           showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(
-                content:
-                    Text('Your location has been send !\n${_currentAddress}  '),
+                content: Text(
+                    'Your location has been send !\n ${_currentAddress}  '),
               );
             },
           );
