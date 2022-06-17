@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,6 +12,16 @@ class MapsPage extends StatefulWidget {
 class _MapsPageState extends State<MapsPage> {
   late Position userLocation;
   late GoogleMapController mapController;
+
+  late CameraPosition kGooglePlex;
+
+  late Set<Marker> _markers = {
+    Marker(
+        markerId: MarkerId("id"),
+        icon: BitmapDescriptor.defaultMarker,
+        position: LatLng(userLocation.latitude, userLocation.longitude),
+        onTap: () {})
+  };
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -42,6 +54,15 @@ class _MapsPageState extends State<MapsPage> {
     return userLocation;
   }
 
+  // void _onAddMarkerButtonPressed(LatLng latlang) {
+  //   setState(() {
+  //     _markers.add(Marker(
+  //       markerId: MarkerId("id"),
+  //       position:
+  //     ));
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,9 +77,12 @@ class _MapsPageState extends State<MapsPage> {
               mapType: MapType.hybrid,
               onMapCreated: _onMapCreated,
               myLocationEnabled: true,
+              zoomControlsEnabled: true,
               initialCameraPosition: CameraPosition(
                   target: LatLng(userLocation.latitude, userLocation.longitude),
                   zoom: 15),
+              markers: _markers,
+              onTap: (LatLng) {},
             );
           } else {
             return Center(

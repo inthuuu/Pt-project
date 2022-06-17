@@ -2,8 +2,8 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class MapSample extends StatefulWidget {
   const MapSample({Key? key}) : super(key: key);
@@ -14,11 +14,32 @@ class MapSample extends StatefulWidget {
 
 class _MapSampleState extends State<MapSample> {
   late GoogleMapController _controller;
-  late Position currentPosition;
 
-  void getCurrentLocation() async {
-    currentPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+  Location location = new Location();
+
+  Future<Location> _getLocation() async {
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        Future.error('Location services are disabled.');
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    _locationData = await location.getLocation();
+    return location;
   }
 
   static final CameraPosition _kGooglePlex = CameraPosition(
@@ -28,8 +49,6 @@ class _MapSampleState extends State<MapSample> {
 
   @override
   void initState() {
-    getCurrentLocation();
-
     super.initState();
   }
 
@@ -51,6 +70,9 @@ class _MapSampleState extends State<MapSample> {
           zoomControlsEnabled: true,
           onMapCreated: (GoogleMapController controller) {
             _controller = controller;
+            location.onLocationChanged.listen((LocationData currentLocation) {
+              // Use current location
+            });
           },
         ),
       ]),
