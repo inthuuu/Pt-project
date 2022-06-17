@@ -1,3 +1,4 @@
+import 'package:drone_for_smart_farming/drawPolygon.dart';
 import 'package:drone_for_smart_farming/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -32,7 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await _auth.signOut();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => PolygonScreen()));
         },
         child: Icon(Icons.logout),
       ),

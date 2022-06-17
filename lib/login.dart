@@ -1,10 +1,7 @@
 import 'package:drone_for_smart_farming/HomeScreen.dart';
 import 'package:drone_for_smart_farming/map.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:form_field_validator/form_field_validator.dart';
+import 'package:flutter/material.dart';
 import 'model/profile.dart';
 
 enum MobileVerificationState {
@@ -42,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
         showLoading = false;
       });
 
-      if (AuthCredential?.user != null) {
+      if (AuthCredential.user != null) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
       }
@@ -84,15 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() {
                     showLoading = false;
                   });
-                  var verificationFailed; //????????
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(verificationFailed.message)));
+                  //var verificationFailed; //????????
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("${PhoneVerificationFailed.message}")));
                 },
                 codeSent: (verificationId, resendingToken) async {
                   setState(() {
                     showLoading = false;
-                    currentState =
-                        MobileVerificationState.SHOW_MOBILE_FROM_STATE;
+                    currentState = MobileVerificationState.SHOW_OTP_FROM_STATE;
                     this.verificationId = verificationId;
                   });
                 },
@@ -117,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Spacer(),
         TextField(
           controller: otpController,
-          decoration: InputDecoration(hintText: "Phone Number"),
+          decoration: InputDecoration(hintText: "OTP"),
         ),
         SizedBox(
           height: 16,
@@ -126,13 +122,14 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: () async {
               PhoneAuthCredential phoneAuthCredential =
                   PhoneAuthProvider.credential(
-                      verificationId: verificationId, smsCode: otpController.text);
+                      verificationId: verificationId,
+                      smsCode: otpController.text);
 
               signInWithPhoneAuthCreential(phoneAuthCredential);
             },
             child: Text(
               "Enter OTP",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             )
             // color: Colors.blue,
             // textColor: Colors.white,

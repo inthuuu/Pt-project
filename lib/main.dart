@@ -4,8 +4,8 @@ import 'package:drone_for_smart_farming/login.dart';
 import 'package:drone_for_smart_farming/drawPolygon.dart';
 import 'package:drone_for_smart_farming/map.dart';
 import 'package:drone_for_smart_farming/HomeScreen.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'HomeScreen.dart';
 
 void main() async {
@@ -13,18 +13,17 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
-class MyApp extends StatelessWidget {
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "My App",
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: LoginScreen()
-    );
+        title: "My App",
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: LoginScreen());
   }
 }
