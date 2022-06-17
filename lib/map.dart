@@ -12,7 +12,6 @@ class MapsPage extends StatefulWidget {
 class _MapsPageState extends State<MapsPage> {
   late Position userLocation;
   late GoogleMapController mapController;
-
   late CameraPosition kGooglePlex;
 
   late Set<Marker> _markers = {
