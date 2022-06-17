@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:drone_for_smart_farming/drawPolygon.dart';
 import 'package:drone_for_smart_farming/map.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "My App",
       theme: ThemeData(primaryColor: Color(0xfffdefbb)),
-      home: MapsPage(),
+      home: PolygonScreen(),
     );
   }
 }

@@ -1,16 +1,20 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, use_key_in_widget_constructors, unnecessary_brace_in_string_interps
+// ignore: file_names
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, file_names
+
+import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapsPage extends StatefulWidget {
+class PolygonScreen extends StatefulWidget {
+  const PolygonScreen({Key? key}) : super(key: key);
+
   @override
-  _MapsPageState createState() => _MapsPageState();
+  State<PolygonScreen> createState() => _PolygonScreenState();
 }
 
-class _MapsPageState extends State<MapsPage> {
+class _PolygonScreenState extends State<PolygonScreen> {
   late GoogleMapController mapController;
   late CameraPosition kGooglePlex;
 
@@ -18,7 +22,11 @@ class _MapsPageState extends State<MapsPage> {
 
   List<Marker> myMarker = [];
   late LatLng point = LatLng(userLocation.latitude, userLocation.longitude);
-  String _currentAddress = '';
+
+  Set<Polygon> _polygone = HashSet<Polygon>();
+  List<LatLng> points = [];
+
+  late double radius;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -55,30 +63,29 @@ class _MapsPageState extends State<MapsPage> {
   //add marker on google map
   void _onAddMarkerButtonPressed(LatLng tappedPoint) {
     setState(() {
-      myMarker = [];
+      //myMarker = [];
       myMarker.add(Marker(
         markerId: MarkerId(tappedPoint.toString()),
         position: tappedPoint,
       ));
     });
     point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
+    points.add(point);
+
+    setState(() {
+      _setPolygon();
+    });
   }
 
-  //translate latlong to readable address
-  _getAddress() async {
-    try {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(point.latitude, point.longitude);
-
-      Placemark place = placemarks[0];
-
-      setState(() {
-        _currentAddress =
-            "${place.street}, ${place.locality}, ${place.postalCode}, ${place.country} \n lat: ${point.latitude}, \n long:${point.longitude}";
-      });
-    } catch (e) {
-      CircularProgressIndicator();
-    }
+  //draw polygon on google map
+  void _setPolygon() {
+    _polygone.add(Polygon(
+        polygonId: PolygonId('1'),
+        points: points,
+        strokeColor: Colors.deepPurple,
+        strokeWidth: 5,
+        fillColor: Colors.deepPurple.withOpacity(0.1),
+        geodesic: true));
   }
 
   @override
@@ -98,10 +105,9 @@ class _MapsPageState extends State<MapsPage> {
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
                       initialCameraPosition: CameraPosition(
-                          target: LatLng(
-                              userLocation.latitude, userLocation.longitude),
-                          zoom: 15),
+                          target: LatLng(13.63961, 100.62485), zoom: 15),
                       markers: Set.from(myMarker),
+                      polygons: _polygone,
                       onTap: _onAddMarkerButtonPressed);
                 } else {
                   return Center(
@@ -118,30 +124,32 @@ class _MapsPageState extends State<MapsPage> {
             //get location from marker button
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+              child: Row(
                 children: [
                   FloatingActionButton.extended(
-                    onPressed: () {
-                      mapController.animateCamera(CameraUpdate.newLatLngZoom(
-                          LatLng(point.latitude, point.longitude), 18));
-                      _getAddress();
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text(
-                                'Your location has been send !\n${_currentAddress}  '),
-                          );
-                        },
-                      );
-                    },
-                    label: Text("Send Location"),
-                    icon: Icon(Icons.near_me),
+                    onPressed: () {},
+                    label: Text("Save"),
                   ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      points.remove(points.last);
+                      myMarker.remove(myMarker.last);
+                      setState(() {
+                        _setPolygon();
+                      });
+                    },
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.redo,
+                      color: Colors.black,
+                    ),
+                  )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
