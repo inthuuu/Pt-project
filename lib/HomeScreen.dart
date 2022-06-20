@@ -18,10 +18,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final currentState = TextEditingController();
-
-  final phoneController = TextEditingController();
-  final otpController = TextEditingController();
+  // final currentState = TextEditingController();
+  // final phoneController = TextEditingController();
+  // final otpController = TextEditingController();
   final _auth = FirebaseAuth.instance;
 
   @override

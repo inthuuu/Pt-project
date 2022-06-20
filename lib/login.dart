@@ -1,6 +1,9 @@
 import 'package:drone_for_smart_farming/HomeScreen.dart';
 import 'package:drone_for_smart_farming/map.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
 import 'model/profile.dart';
 
@@ -75,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   setState(() {
                     showLoading = false;
                   });
-                  //signInWithPhoneAuthCreential(phoneAuthCredential);
+                  signInWithPhoneAuthCreential(PhoneAuthCredential);
                 },
                 verificationFailed: (PhoneVerificationFailed) async {
                   setState(() {
@@ -99,8 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
               "SEND",
               style: TextStyle(color: Colors.blue),
             )
-            // color: Colors.blue,
-            // textColor: Colors.white,
             ),
         Spacer(),
       ],
@@ -113,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Spacer(),
         TextField(
           controller: otpController,
-          decoration: InputDecoration(hintText: "OTP"),
+          decoration: InputDecoration(hintText: "Enter OTP"),
         ),
         SizedBox(
           height: 16,
@@ -128,12 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
               signInWithPhoneAuthCreential(phoneAuthCredential);
             },
             child: Text(
-              "Enter OTP",
+              "VERIFY",
               style: TextStyle(color: Colors.black),
-            )
-            // color: Colors.blue,
-            // textColor: Colors.white,
-            ),
+            )            ),
         Spacer(),
       ],
     );
