@@ -1,11 +1,7 @@
-import 'package:drone_for_smart_farming/HomeScreen.dart';
-import 'package:drone_for_smart_farming/map.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:form_field_validator/form_field_validator.dart';
+import 'package:drone_for_smart_farming/whichone.dart';
 import 'package:flutter/material.dart';
-import 'model/profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:drone_for_smart_farming/HomeScreen.dart';
 
 enum MobileVerificationState {
   SHOW_MOBILE_FROM_STATE,
@@ -44,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (AuthCredential.user != null) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            context, MaterialPageRoute(builder: (context) => whichone()));
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -56,84 +52,126 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   getMobileFromWidget(context) {
-    return Column(
-      children: [
-        Spacer(),
-        TextField(
-          controller: phoneController,
-          decoration: InputDecoration(hintText: "Phone Number"),
-        ),
-        SizedBox(
-          height: 16,
-        ),
-        TextButton(
-            onPressed: () async {
-              setState(() {
-                showLoading = true;
-              });
-
-              await _auth.verifyPhoneNumber(
-                phoneNumber: phoneController.text,
-                verificationCompleted: (PhoneAuthCredential) async {
-                  setState(() {
-                    showLoading = false;
-                  });
-                  signInWithPhoneAuthCreential(PhoneAuthCredential);
-                },
-                verificationFailed: (PhoneVerificationFailed) async {
-                  setState(() {
-                    showLoading = false;
-                  });
-                  //var verificationFailed; //????????
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("${PhoneVerificationFailed.message}")));
-                },
-                codeSent: (verificationId, resendingToken) async {
-                  setState(() {
-                    showLoading = false;
-                    currentState = MobileVerificationState.SHOW_OTP_FROM_STATE;
-                    this.verificationId = verificationId;
-                  });
-                },
-                codeAutoRetrievalTimeout: (verificationId) async {},
-              );
-            },
-            child: Text(
-              "SEND",
-              style: TextStyle(color: Colors.blue),
-            )
+    return Scaffold(
+      backgroundColor: Color(0xFF9FE2BF),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Column(
+          children: [
+            Spacer(),
+            Text("Drone For Smart Farming",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            SizedBox(
+              height: 80,
             ),
-        Spacer(),
-      ],
+            Icon(
+              Icons.account_circle,
+              size: 150,
+            ),
+            SizedBox(
+              height: 80,
+            ),
+            SizedBox(
+                child: TextField(
+              controller: phoneController,
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelText: "Phone Number"),
+            )),
+            SizedBox(
+              height: 25,
+            ),
+            SizedBox(
+              height: 55,
+              width: 350,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF30574B),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
+                child: Text("ถัดไป", style: TextStyle(fontSize: 18)),
+                onPressed: () async {
+                  setState(() {
+                    showLoading = true;
+                  });
+                  await _auth.verifyPhoneNumber(
+                    phoneNumber: "+66" + phoneController.text,
+                    verificationCompleted: (PhoneAuthCredential) async {
+                      setState(() {
+                        showLoading = false;
+                      });
+                      signInWithPhoneAuthCreential(PhoneAuthCredential);
+                    },
+                    verificationFailed: (PhoneVerificationFailed) async {
+                      setState(() {
+                        showLoading = false;
+                      });
+                      //var verificationFailed; //????????
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("${PhoneVerificationFailed.message}")));
+                    },
+                    codeSent: (verificationId, resendingToken) async {
+                      setState(() {
+                        showLoading = false;
+                        currentState =
+                            MobileVerificationState.SHOW_OTP_FROM_STATE;
+                        this.verificationId = verificationId;
+                      });
+                    },
+                    codeAutoRetrievalTimeout: (verificationId) async {},
+                  );
+                },
+              ),
+            ),
+            Spacer(),
+          ],
+        ),
+      ),
     );
   }
 
   getOtpFromWidget(context) {
-    return Column(
-      children: [
-        Spacer(),
-        TextField(
-          controller: otpController,
-          decoration: InputDecoration(hintText: "Enter OTP"),
+    return Scaffold(
+      backgroundColor: Color(0xFF9FE2BF),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Column(
+          children: [
+            Spacer(),
+            SizedBox(
+                child: TextField(
+              controller: otpController,
+              decoration: InputDecoration(
+                  filled: true, fillColor: Colors.white, labelText: "OTP"),
+            )),
+            SizedBox(
+              height: 25,
+            ),
+            SizedBox(
+              height: 55,
+              width: 350,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF30574B),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
+                child: Text("ถัดไป", style: TextStyle(fontSize: 18)),
+                onPressed: () async {
+                  PhoneAuthCredential phoneAuthCredential =
+                      PhoneAuthProvider.credential(
+                          verificationId: verificationId,
+                          smsCode: otpController.text);
+                  signInWithPhoneAuthCreential(phoneAuthCredential);
+                },
+              ),
+            ),
+            Spacer(),
+          ],
         ),
-        SizedBox(
-          height: 16,
-        ),
-        TextButton(
-            onPressed: () async {
-              PhoneAuthCredential phoneAuthCredential =
-                  PhoneAuthProvider.credential(
-                      verificationId: verificationId,
-                      smsCode: otpController.text);
-
-              signInWithPhoneAuthCreential(phoneAuthCredential);
-            },
-            child: Text(
-              "VERIFY",
-              style: TextStyle(color: Colors.black),
-            )            ),
-        Spacer(),
-      ],
+      ),
     );
   }
 
@@ -144,14 +182,35 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
-          child: showLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : currentState == MobileVerificationState.SHOW_MOBILE_FROM_STATE
-                  ? getMobileFromWidget(context)
-                  : getOtpFromWidget(context),
-          padding: const EdgeInsets.all(16)),
+        child: showLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : currentState == MobileVerificationState.SHOW_MOBILE_FROM_STATE
+                ? getMobileFromWidget(context)
+                : getOtpFromWidget(context),
+        //padding: const EdgeInsets.all(0)
+      ),
     );
   }
 }
+
+
+
+                            // SizedBox(
+                            //   height: 55,
+                            //   width: double.infinity,
+                            //   child: ElevatedButton(
+                            //     style: ElevatedButton.styleFrom(
+                            //         primary: Colors.green,
+                            //         onPrimary: Colors.white,
+                            //         shape: RoundedRectangleBorder(
+                            //             borderRadius: BorderRadius.all(
+                            //                 Radius.circular(10)))),
+                            //     child: Text("Verify",
+                            //         style: TextStyle(fontSize: 18)),
+                            //     onPressed: () async {
+
+                            //     },
+                            //   ),
+                            // )
