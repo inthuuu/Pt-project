@@ -1,11 +1,8 @@
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, unused_catch_clause
+
 import 'package:drone_for_smart_farming/HomeScreen.dart';
-import 'package:drone_for_smart_farming/map.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
-import 'model/profile.dart';
 
 enum MobileVerificationState {
   SHOW_MOBILE_FROM_STATE,
@@ -101,8 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Text(
               "SEND",
               style: TextStyle(color: Colors.blue),
-            )
-            ),
+            )),
         Spacer(),
       ],
     );
@@ -131,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Text(
               "VERIFY",
               style: TextStyle(color: Colors.black),
-            )            ),
+            )),
         Spacer(),
       ],
     );

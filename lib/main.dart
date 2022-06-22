@@ -1,11 +1,12 @@
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+
+import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
 import 'package:drone_for_smart_farming/login.dart';
-import 'package:drone_for_smart_farming/drawPolygon.dart';
-import 'package:drone_for_smart_farming/map.dart';
 import 'package:drone_for_smart_farming/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'HomeScreen.dart';
 
 void main() async {
@@ -17,14 +18,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "My App",
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: InitializerWidget());
+    return ChangeNotifierProvider(
+      create: (context) => Applicationbloc(),
+      child: MaterialApp(
+          title: "My App",
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: InitializerWidget()),
+    );
   }
 }
 
@@ -42,7 +46,6 @@ class _InitializerWidgetState extends State<InitializerWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _auth = FirebaseAuth.instance;
     _user = _auth.currentUser;
@@ -51,51 +54,17 @@ class _InitializerWidgetState extends State<InitializerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
-        : _user == null
-            ? LoginScreen()
-            : HomeScreen();
+    return ChangeNotifierProvider(
+      create: (context) => Applicationbloc(),
+      child: isLoading
+          ? Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : _user == null
+              ? LoginScreen()
+              : HomeScreen(),
+    );
   }
 }
-
-// class InitializerWidget extends StatefulWidget {
-//   @override
-//   _InitializerWidgetState createState() => _InitializerWidgetState();
-// }
-
-// class _InitializerWidgetState extends State<InitializerWidget> {
-//   final Future<FirebaseApp> firebase = Firebase.initializeApp();
-
-//   late FirebaseAuth _auth;
-
-//   late User _user;
-
-//   bool isLoading = true;
-
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     _auth = FirebaseAuth.instance;
-//     _user = _auth.currentUser!;
-//     isLoading = false;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return isLoading
-//         ? Scaffold(
-//             body: Center(
-//               child: CircularProgressIndicator(),
-//             ),
-//           )
-//         : _user == null
-//             ? LoginScreen()
-//             : HomeScreen();
-//   }
-// }
