@@ -58,8 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             Spacer(),
-            Text("Drone For Smart Farming",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Container(
+              child: Text("Drone For Smart Farming",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            ),
             SizedBox(
               height: 80,
             ),

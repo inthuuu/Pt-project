@@ -54,8 +54,6 @@ dependencies:
   profile: ^0.0.1
   form_field_validator: ^1.1.0
   firebase_core: ^1.18.0
-  motion_tab_bar: ^0.1.5
-
 
 flutter_icons:
   android: true

@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/login.dart';
 import 'package:drone_for_smart_farming/profilefarmer.dart';
-import 'package:motion_tab_bar/MotionTabBarView.dart';
-import 'package:motion_tab_bar/MotionTabController.dart';
-import 'package:motion_tab_bar/motiontabbar.dart';
 
 class HomeScreenFarmer extends StatefulWidget {
   const HomeScreenFarmer({Key? key}) : super(key: key);
@@ -15,22 +12,7 @@ class HomeScreenFarmer extends StatefulWidget {
   State<HomeScreenFarmer> createState() => _HomeScreenFarmerState();
 }
 
-class _HomeScreenFarmerState extends State<HomeScreenFarmer>
-    with TickerProviderStateMixin {
-  late MotionTabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = MotionTabController(initialIndex: 1, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _tabController.dispose();
-  }
-
+class _HomeScreenFarmerState extends State<HomeScreenFarmer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,96 +33,77 @@ class _HomeScreenFarmerState extends State<HomeScreenFarmer>
         actionsIconTheme: IconThemeData(size: 50.0, color: Colors.black),
         title: Column(
           children: [
-            Text(
-              "บริการโดรน",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+            Container(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "บริการโดรน",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-            Text(
-              "บริการโดรนเพื่อการเกษตร",
-              style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+            Container(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "บริการโดรนเพื่อการเกษตร",
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: MotionTabBar(
-        labels: ["Account", "Home", "Dashboard"],
-        initialSelectedTab: "Home",
-        tabIconColor: Colors.green,
-        tabSelectedColor: Colors.red,
-        onTabItemSelected: (int value) {
-          print(value);
-          setState(() {
-            _tabController.index = value;
-          });
-        },
-        icons: [Icons.account_box, Icons.home, Icons.menu],
-        textStyle: TextStyle(color: Colors.red),
-      ),
-      body: MotionTabBarView(
-        controller: _tabController,
-        children: [
-          Container(
-            child: Center(
-              child: Text("Account"),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 25,
             ),
-          ),
-          Container(
-            child: Center(
-              child: Text("Home"),
+            SizedBox(
+              height: 80,
+              width: 350,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF30574B),
+                    onPrimary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
+                child: Container(
+                  child: Text("เลือกบริการ",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                ),
+                onPressed: () async {
+                  setState(() {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => MapsPage()));
+                  });
+                },
+              ),
             ),
-          ),
-          Container(
-            child: Center(
-              child: Text("Dashboard"),
+            SizedBox(
+              height: 25,
             ),
-          ),
-          // Column(
-          //   children: [
-          //     SizedBox(
-          //       height: 25,
-          //     ),
-          //     SizedBox(
-          //       height: 80,
-          //       width: 350,
-          //       child: ElevatedButton(
-          //         style: ElevatedButton.styleFrom(
-          //             primary: Color(0xFF30574B),
-          //             onPrimary: Colors.white,
-          //             shape: RoundedRectangleBorder(
-          //                 borderRadius:
-          //                     BorderRadius.all(Radius.circular(10)))),
-          //         child: Text("เลือกบริการ",
-          //             style: TextStyle(
-          //                 fontSize: 22, fontWeight: FontWeight.bold)),
-          //         onPressed: () async {
-          //           setState(() {
-          //             Navigator.pushReplacement(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                     builder: (context) => MapsPage()));
-          //           });
-          //         },
-          //       ),
-          //     ),
-          //     SizedBox(
-          //       height: 25,
-          //     ),
-          //     Text("กิจกรรม  _______________________________________",
-          //         style:
-          //             TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          //   ],
-          // )
-        ],
+            Container(
+              alignment: Alignment.topLeft,
+              child: Text("กิจกรรม",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ),
+            Divider(color: Colors.black,)
+          ],
+        ),
       ),
     );
   }
 }
+
+
+
+
 
 
 

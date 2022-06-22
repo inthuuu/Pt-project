@@ -69,13 +69,17 @@ class _whichoneState extends State<whichone> {
             SizedBox(
               width: 10,
             ),
-            Text("เกษตรกร",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Container(
+              child: Text("เกษตรกร",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
             SizedBox(
               width: 85,
             ),
-            Text("เจ้าของโดรน",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Container(
+              child: Text("เจ้าของโดรน",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
           ],
         ),
         Spacer(),
