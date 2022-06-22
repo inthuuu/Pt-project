@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
+import 'package:drone_for_smart_farming/homescreenframer.dart';
 import 'package:drone_for_smart_farming/login.dart';
 import 'package:drone_for_smart_farming/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -64,7 +65,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
             )
           : _user == null
               ? LoginScreen()
-              : HomeScreen(),
+              : HomeScreenFarmer(),
     );
   }
 }
