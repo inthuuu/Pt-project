@@ -3,12 +3,10 @@
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
 import 'package:drone_for_smart_farming/homescreenframer.dart';
 import 'package:drone_for_smart_farming/login.dart';
-import 'package:drone_for_smart_farming/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'HomeScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,9 +22,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: "My App",
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              fontFamily: 'Poppins'),
           debugShowCheckedModeBanner: false,
           home: InitializerWidget()),
     );

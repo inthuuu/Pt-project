@@ -1,7 +1,7 @@
+// ignore_for_file: unnecessary_import, camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:drone_for_smart_farming/homescreenframer.dart';
 
 class whichone extends StatefulWidget {
@@ -12,7 +12,6 @@ class whichone extends StatefulWidget {
 }
 
 class _whichoneState extends State<whichone> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +32,10 @@ class _whichoneState extends State<whichone> {
             InkWell(
               onTap: () {
                 setState(() {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => HomeScreenFarmer()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomeScreenFarmer()));
                 });
               },
               child: ClipRRect(
@@ -48,8 +49,10 @@ class _whichoneState extends State<whichone> {
             InkWell(
               onTap: () {
                 setState(() {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => HomeScreenFarmer()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomeScreenFarmer()));
                 });
               },
               child: ClipRRect(

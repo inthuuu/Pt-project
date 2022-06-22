@@ -1,11 +1,8 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, unused_catch_clause
 
-import 'package:drone_for_smart_farming/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:drone_for_smart_farming/whichone.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 enum MobileVerificationState {
   SHOW_MOBILE_FROM_STATE,

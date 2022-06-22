@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/login.dart';
@@ -10,7 +12,7 @@ class ProfileFarmer extends StatefulWidget {
 }
 
 class _ProfileFarmerState extends State<ProfileFarmer> {
-    final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {

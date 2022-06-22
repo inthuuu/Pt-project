@@ -6,7 +6,7 @@ class Applicationbloc with ChangeNotifier {
   final geolocatorService = GeolocatorSeries();
 
   //Variables
-  late Position currentLocation;
+  Position? currentLocation;
 
   Applicationbloc() {
     setCurrentLocation();

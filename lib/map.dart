@@ -1,7 +1,11 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors, unnecessary_brace_in_string_interps
+
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'homescreenframer.dart';
 
 class MapsPage extends StatefulWidget {
   @override
@@ -58,6 +62,16 @@ class _MapsPageState extends State<MapsPage> {
         markerId: MarkerId(tappedPoint.toString()),
         position: tappedPoint,
       ));
+      _getAddress();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content:
+                Text('Your location has been send !\n${_currentAddress}  '),
+          );
+        },
+      );
     });
     point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
   }
@@ -119,23 +133,32 @@ class _MapsPageState extends State<MapsPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  FloatingActionButton.extended(
-                    onPressed: () {
-                      mapController.animateCamera(CameraUpdate.newLatLngZoom(
-                          LatLng(point.latitude, point.longitude), 18));
-                      _getAddress();
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text(
-                                'Your location has been send !\n${_currentAddress}  '),
-                          );
-                        },
-                      );
-                    },
-                    label: Text("Send Location"),
-                    icon: Icon(Icons.near_me),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    height: 60,
+                    width: 280,
+                    child: ElevatedButton(
+                      child: Text(
+                        'Get Location',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xff2f574b),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      onPressed: () {
+                        mapController.animateCamera(CameraUpdate.newLatLngZoom(
+                            LatLng(point.latitude, point.longitude), 18));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreenFarmer()));
+                      },
+                    ),
                   ),
                 ],
               ),
