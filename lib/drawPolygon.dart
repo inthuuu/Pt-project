@@ -1,7 +1,9 @@
 import 'dart:collection';
+import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
+import 'package:drone_for_smart_farming/homescreenframer.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class PolygonScreen extends StatefulWidget {
   const PolygonScreen({Key? key}) : super(key: key);
@@ -14,46 +16,14 @@ class _PolygonScreenState extends State<PolygonScreen> {
   late GoogleMapController mapController;
   late CameraPosition kGooglePlex;
 
-  late Position userLocation;
-
   List<Marker> myMarker = [];
-  late LatLng point = LatLng(userLocation.latitude, userLocation.longitude);
+  late LatLng point;
 
   Set<Polygon> _polygone = HashSet<Polygon>();
   List<LatLng> points = [];
 
-  late double radius;
-
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
-  }
-
-  //get current location from user
-  Future<Position> _getLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    userLocation = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    return userLocation;
   }
 
   //add marker on google map
@@ -86,69 +56,109 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final applicationBloc = Provider.of<Applicationbloc>(context);
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            FutureBuilder(
-              future: _getLocation(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return GoogleMap(
+      body: (applicationBloc.currentLocation == null)
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SafeArea(
+              child: Stack(
+                children: [
+                  GoogleMap(
                       mapType: MapType.hybrid,
                       onMapCreated: _onMapCreated,
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
                       initialCameraPosition: CameraPosition(
-                          target: LatLng(13.63961, 100.62485), zoom: 15),
+                          target: LatLng(
+                              applicationBloc.currentLocation!.latitude,
+                              applicationBloc.currentLocation!.longitude),
+                          zoom: 15),
                       markers: Set.from(myMarker),
                       polygons: _polygone,
-                      onTap: _onAddMarkerButtonPressed);
-                } else {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CircularProgressIndicator(),
+                      onTap: _onAddMarkerButtonPressed),
+                  //get location from marker button
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 20),
+                    child: Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreenFarmer()));
+                            },
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              Icons.arrow_back_rounded,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Container(
+                          alignment: Alignment.topCenter,
+                          child: SizedBox(
+                              height: 60,
+                              width: 250,
+                              child: TextFormField(
+                                initialValue: 'Search place...',
+                                decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                              )),
+                        ),
                       ],
                     ),
-                  );
-                }
-              },
-            ),
-            //get location from marker button
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-              child: Row(
-                children: [
-                  FloatingActionButton.extended(
-                    onPressed: () {},
-                    label: Text("Save"),
                   ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  FloatingActionButton(
-                    onPressed: () {
-                      points.remove(points.last);
-                      myMarker.remove(myMarker.last);
-                      setState(() {
-                        _setPolygon();
-                      });
-                    },
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.redo,
-                      color: Colors.black,
+                  Align(
+                    alignment: Alignment(0.95, 0.2),
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        points.remove(points.last);
+                        myMarker.remove(myMarker.last);
+                        setState(() {
+                          _setPolygon();
+                        });
+                      },
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.redo,
+                        color: Colors.black,
+                      ),
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                        alignment: FractionalOffset.bottomCenter,
+                        child: SizedBox(
+                          height: 60,
+                          width: 280,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              'ถัดไป',
+                              style: TextStyle(
+                                  fontSize: 20, color: Color(0xff2f574b)),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                          ),
+                        )),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
