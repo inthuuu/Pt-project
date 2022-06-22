@@ -1,12 +1,10 @@
-import 'package:drone_for_smart_farming/whichone.dart';
-
-import 'HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:drone_for_smart_farming/login.dart';
-import 'package:drone_for_smart_farming/HomeScreen.dart';
-
+import 'package:drone_for_smart_farming/whichone.dart';
+import 'package:drone_for_smart_farming/profilefarmer.dart';
+import 'package:drone_for_smart_farming/homescreenframer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +55,6 @@ class _InitializerWidgetState extends State<InitializerWidget> {
       body: Center(
         child: CircularProgressIndicator(),
       ),
-    ) : _user == null ? LoginScreen() : HomeScreen();
+    ) : _user == null ? LoginScreen() : HomeScreenFarmer();
   }
 }

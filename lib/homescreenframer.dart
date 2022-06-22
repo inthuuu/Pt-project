@@ -1,33 +1,155 @@
+import 'package:drone_for_smart_farming/drawPolygon.dart';
+import 'package:drone_for_smart_farming/map.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/login.dart';
+import 'package:drone_for_smart_farming/profilefarmer.dart';
+import 'package:motion_tab_bar/MotionTabBarView.dart';
+import 'package:motion_tab_bar/MotionTabController.dart';
+import 'package:motion_tab_bar/motiontabbar.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreenFarmer extends StatefulWidget {
+  const HomeScreenFarmer({Key? key}) : super(key: key);
+
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreenFarmer> createState() => _HomeScreenFarmerState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final _auth = FirebaseAuth.instance;
+class _HomeScreenFarmerState extends State<HomeScreenFarmer>
+    with TickerProviderStateMixin {
+  late MotionTabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = MotionTabController(initialIndex: 1, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Home Screen"),
+      backgroundColor: Color(0xFF9FE2BF),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => ProfileFarmer()));
+                },
+                child: Icon(Icons.account_circle_rounded),
+              )),
+        ],
+        actionsIconTheme: IconThemeData(size: 50.0, color: Colors.black),
+        title: Column(
+          children: [
+            Text(
+              "บริการโดรน",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              "บริการโดรนเพื่อการเกษตร",
+              style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await _auth.signOut();
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      bottomNavigationBar: MotionTabBar(
+        labels: ["Account", "Home", "Dashboard"],
+        initialSelectedTab: "Home",
+        tabIconColor: Colors.green,
+        tabSelectedColor: Colors.red,
+        onTabItemSelected: (int value) {
+          print(value);
+          setState(() {
+            _tabController.index = value;
+          });
         },
-        child: Icon(Icons.logout),
+        icons: [Icons.account_box, Icons.home, Icons.menu],
+        textStyle: TextStyle(color: Colors.red),
+      ),
+      body: MotionTabBarView(
+        controller: _tabController,
+        children: [
+          Container(
+            child: Center(
+              child: Text("Account"),
+            ),
+          ),
+          Container(
+            child: Center(
+              child: Text("Home"),
+            ),
+          ),
+          Container(
+            child: Center(
+              child: Text("Dashboard"),
+            ),
+          ),
+          // Column(
+          //   children: [
+          //     SizedBox(
+          //       height: 25,
+          //     ),
+          //     SizedBox(
+          //       height: 80,
+          //       width: 350,
+          //       child: ElevatedButton(
+          //         style: ElevatedButton.styleFrom(
+          //             primary: Color(0xFF30574B),
+          //             onPrimary: Colors.white,
+          //             shape: RoundedRectangleBorder(
+          //                 borderRadius:
+          //                     BorderRadius.all(Radius.circular(10)))),
+          //         child: Text("เลือกบริการ",
+          //             style: TextStyle(
+          //                 fontSize: 22, fontWeight: FontWeight.bold)),
+          //         onPressed: () async {
+          //           setState(() {
+          //             Navigator.pushReplacement(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (context) => MapsPage()));
+          //           });
+          //         },
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       height: 25,
+          //     ),
+          //     Text("กิจกรรม  _______________________________________",
+          //         style:
+          //             TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          //   ],
+          // )
+        ],
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
 //         future: firebase,
 //         builder: (context, snapshot) {
 //           if (snapshot.hasError) {
@@ -172,9 +294,8 @@ class _HomeScreenState extends State<HomeScreen> {
 //           );
 //         });
 
-
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({Key? key}) : super(key: key);
+// class HomeScreenFarmer extends StatelessWidget {
+//   const HomeScreenFarmer({Key? key}) : super(key: key);
 
 //   @override
 //   Widget build(BuildContext context) {
