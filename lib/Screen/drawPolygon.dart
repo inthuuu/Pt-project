@@ -4,7 +4,7 @@
 import 'dart:collection';
 
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
-import 'package:drone_for_smart_farming/homescreenframer.dart';
+import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +33,6 @@ class _PolygonScreenState extends State<PolygonScreen> {
   //add marker on google map
   void _onAddMarkerButtonPressed(LatLng tappedPoint) {
     setState(() {
-      //myMarker = [];
       myMarker.add(Marker(
         markerId: MarkerId(tappedPoint.toString()),
         position: tappedPoint,
@@ -74,6 +73,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       onMapCreated: _onMapCreated,
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
+                      minMaxZoomPreference: MinMaxZoomPreference(0, 16),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(
                               applicationBloc.currentLocation!.latitude,
