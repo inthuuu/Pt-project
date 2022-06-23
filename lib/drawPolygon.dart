@@ -86,6 +86,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
                         Container(
                           alignment: Alignment.topLeft,
                           child: FloatingActionButton(
+                            heroTag: "",
                             onPressed: () {
                               Navigator.pushReplacement(
                                   context,
