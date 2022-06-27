@@ -1,16 +1,9 @@
-// ignore: file_names
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, file_names, duplicate_ignore, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, unused_import
-
 import 'dart:collection';
-
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:drone_for_smart_farming/Screen/selectService.dart';
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
-import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
-
-import '../Widget/bottomNav.dart';
 
 class PolygonScreen extends StatefulWidget {
   const PolygonScreen({Key? key}) : super(key: key);

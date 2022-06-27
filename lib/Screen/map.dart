@@ -1,11 +1,9 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors, unnecessary_brace_in_string_interps
-
+import 'homescreenframer.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'homescreenframer.dart';
+import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 
 class MapsPage extends StatefulWidget {
   @override
@@ -96,6 +94,30 @@ class _MapsPageState extends State<MapsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF9FE2BF),
+        title: Column(children: [
+          Container(
+            alignment: Alignment.topLeft,
+            height: 40,
+            width: 40,
+            child: FloatingActionButton(
+              heroTag: 1,
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomeScreenDroneOwner()));
+              },
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ]),
+      ),
       body: SafeArea(
         child: Stack(
           alignment: Alignment.bottomCenter,
@@ -162,7 +184,7 @@ class _MapsPageState extends State<MapsPage> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

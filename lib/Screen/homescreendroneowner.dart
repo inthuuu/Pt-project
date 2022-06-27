@@ -1,17 +1,17 @@
 import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
-import 'package:drone_for_smart_farming/Screen/selectService.dart';
+import 'package:drone_for_smart_farming/Screen/map.dart';
+import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
 
-class HomeScreenFarmer extends StatefulWidget {
-  const HomeScreenFarmer({Key? key}) : super(key: key);
+class HomeScreenDroneOwner extends StatefulWidget {
+  const HomeScreenDroneOwner({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreenFarmer> createState() => _HomeScreenFarmerState();
+  State<HomeScreenDroneOwner> createState() => _HomeScreenDroneOwnerState();
 }
 
-class _HomeScreenFarmerState extends State<HomeScreenFarmer> {
+class _HomeScreenDroneOwnerState extends State<HomeScreenDroneOwner> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BottomNavigationBarProvider>(context);
@@ -25,8 +25,10 @@ class _HomeScreenFarmerState extends State<HomeScreenFarmer> {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => ProfileFarmer()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileDroneOwner()));
                 },
                 child: Icon(Icons.account_circle_rounded),
               )),
@@ -78,17 +80,15 @@ class _HomeScreenFarmerState extends State<HomeScreenFarmer> {
                     Icons.accessibility_new_rounded,
                     color: Colors.black,
                   ),
-                  label: Text("เลือกบริการ",
+                  label: Text("เลือกบริการที่ต้องการให้บริการ",
                       style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                   onPressed: () async {
                     setState(() {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SelectService()));
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => MapsPage()));
                     });
                   },
                 ),

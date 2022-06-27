@@ -1,10 +1,8 @@
-// ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, duplicate_ignore
-
-import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
-import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
+import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
 
 class BottomNavigationBarProvider with ChangeNotifier {
   int _currentIndex = 0;

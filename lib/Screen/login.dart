@@ -1,7 +1,5 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors, unused_catch_clause
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/whichone.dart';
 
 enum MobileVerificationState {
@@ -60,8 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             Spacer(),
-            Text("Drone For Smart Farming",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Container(
+              child: Text("Drone For Smart Farming",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            ),
             SizedBox(
               height: 80,
             ),
@@ -190,28 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
             : currentState == MobileVerificationState.SHOW_MOBILE_FROM_STATE
                 ? getMobileFromWidget(context)
                 : getOtpFromWidget(context),
-        //padding: const EdgeInsets.all(0)
       ),
     );
   }
 }
-
-
-
-                            // SizedBox(
-                            //   height: 55,
-                            //   width: double.infinity,
-                            //   child: ElevatedButton(
-                            //     style: ElevatedButton.styleFrom(
-                            //         primary: Colors.green,
-                            //         onPrimary: Colors.white,
-                            //         shape: RoundedRectangleBorder(
-                            //             borderRadius: BorderRadius.all(
-                            //                 Radius.circular(10)))),
-                            //     child: Text("Verify",
-                            //         style: TextStyle(fontSize: 18)),
-                            //     onPressed: () async {
-
-                            //     },
-                            //   ),
-                            // )

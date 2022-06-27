@@ -1,8 +1,6 @@
-// ignore_for_file: unnecessary_import, camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
+import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 
 class whichone extends StatefulWidget {
   const whichone({Key? key}) : super(key: key);
@@ -52,7 +50,7 @@ class _whichoneState extends State<whichone> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HomeScreenFarmer()));
+                          builder: (context) => HomeScreenDroneOwner()));
                 });
               },
               child: ClipRRect(
@@ -72,13 +70,17 @@ class _whichoneState extends State<whichone> {
             SizedBox(
               width: 10,
             ),
-            Text("เกษตรกร",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Container(
+              child: Text("เกษตรกร",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
             SizedBox(
               width: 85,
             ),
-            Text("เจ้าของโดรน",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Container(
+              child: Text("เจ้าของโดรน",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
           ],
         ),
         Spacer(),

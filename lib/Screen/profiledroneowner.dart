@@ -1,18 +1,19 @@
-import 'homescreenframer.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
-import 'package:drone_for_smart_farming/Screen/editprofilefarmer.dart';
+import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
+import 'package:drone_for_smart_farming/Screen/editprofiledroneowner.dart';
 
-class ProfileFarmer extends StatefulWidget {
-  const ProfileFarmer({Key? key}) : super(key: key);
+class ProfileDroneOwner extends StatefulWidget {
+  const ProfileDroneOwner({Key? key}) : super(key: key);
 
   @override
-  State<ProfileFarmer> createState() => _ProfileFarmerState();
+  State<ProfileDroneOwner> createState() => _ProfileDroneOwnerState();
 }
 
-class _ProfileFarmerState extends State<ProfileFarmer> {
+class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
   final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeScreenFarmer()));
+                        builder: (context) => HomeScreenDroneOwner()));
               },
               backgroundColor: Colors.white,
               child: Icon(
@@ -75,7 +76,7 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => EditProfileFarmer()));
+                        builder: (context) => EditProfileDroneOwner()));
               },
             ),
           )
@@ -160,21 +161,8 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
-          child: Container(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "พื้นที่",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
-            ),
-          ),
-        ),
         SizedBox(
-          height: 180,
+          height: 250,
         ),
         SizedBox(
           height: 55,

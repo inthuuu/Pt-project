@@ -1,18 +1,16 @@
-import 'homescreenframer.dart';
+import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
-import 'package:drone_for_smart_farming/Screen/editprofilefarmer.dart';
+import 'homescreenframer.dart';
 
-class ProfileFarmer extends StatefulWidget {
-  const ProfileFarmer({Key? key}) : super(key: key);
+class EditProfileFarmer extends StatefulWidget {
+  const EditProfileFarmer({Key? key}) : super(key: key);
 
   @override
-  State<ProfileFarmer> createState() => _ProfileFarmerState();
+  State<EditProfileFarmer> createState() => _EditProfileFarmerState();
 }
 
-class _ProfileFarmerState extends State<ProfileFarmer> {
-  final _auth = FirebaseAuth.instance;
+class _EditProfileFarmerState extends State<EditProfileFarmer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,35 +53,11 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
           SizedBox(
             width: 130,
           ),
-          SizedBox(
-            height: 40,
-            width: 70,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(50)))),
-              child: Text(
-                "แก้ไข",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
-              ),
-              onPressed: () async {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EditProfileFarmer()));
-              },
-            ),
-          )
         ]),
       ),
       body: Column(children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),
+          padding: const EdgeInsets.fromLTRB(30, 20, 0, 10),
           child: Container(
             alignment: Alignment.topLeft,
             child: Text(
@@ -95,21 +69,30 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
-          child: Container(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "btdngfxmnfxyn",
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
+        SizedBox(
+          height: 55,
+          width: 350,
+          child: TextField(
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              hintText: 'Enter a product name eg. pension',
+              hintStyle: TextStyle(fontSize: 16),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                  color: Colors.white,
+                ),
+              ),
+              filled: true,
+              contentPadding: EdgeInsets.all(16),
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
+          padding: const EdgeInsets.fromLTRB(30, 30, 0, 10),
           child: Container(
             alignment: Alignment.topLeft,
             child: Text(
@@ -121,21 +104,30 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
-          child: Container(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "091-999-9999",
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
+        SizedBox(
+          height: 55,
+          width: 350,
+          child: TextField(
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              hintText: 'Enter a product name eg. pension',
+              hintStyle: TextStyle(fontSize: 16),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                  color: Colors.white,
+                ),
+              ),
+              filled: true,
+              contentPadding: EdgeInsets.all(16),
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
+          padding: const EdgeInsets.fromLTRB(30, 30, 0, 10),
           child: Container(
             alignment: Alignment.topLeft,
             child: Text(
@@ -147,21 +139,30 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
-          child: Container(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
+        SizedBox(
+          height: 55,
+          width: 350,
+          child: TextField(
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+              hintText: 'Enter a product name eg. pension',
+              hintStyle: TextStyle(fontSize: 16),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                  color: Colors.white,
+                ),
+              ),
+              filled: true,
+              contentPadding: EdgeInsets.all(16),
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
+          padding: const EdgeInsets.fromLTRB(30, 30, 0, 10),
           child: Container(
             alignment: Alignment.topLeft,
             child: Text(
@@ -174,23 +175,22 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
           ),
         ),
         SizedBox(
-          height: 180,
+          height: 150,
         ),
         SizedBox(
           height: 55,
           width: 350,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Colors.red,
+                primary: Color(0xff2f574b),
+                onPrimary: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)))),
-            child: Text("ออกจากระบบ",
+            child: Text("ตกลง",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             onPressed: () async {
-              await _auth.signOut();
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+                  MaterialPageRoute(builder: (context) => ProfileFarmer()));
             },
           ),
         ),
