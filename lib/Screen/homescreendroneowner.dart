@@ -1,8 +1,8 @@
-import 'package:drone_for_smart_farming/Screen/map.dart';
-import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
+import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../Widget/bottomNav.dart';
+import 'package:drone_for_smart_farming/Screen/map.dart';
+import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
 
 class HomeScreenDroneOwner extends StatefulWidget {
   const HomeScreenDroneOwner({Key? key}) : super(key: key);

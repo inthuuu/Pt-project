@@ -1,8 +1,8 @@
-import 'package:drone_for_smart_farming/Screen/drawPolygon.dart';
-import 'package:flutter/material.dart';
-import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
-import 'package:provider/provider.dart';
 import '../Widget/bottomNav.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
+import 'package:drone_for_smart_farming/Screen/selectService.dart';
 
 class HomeScreenFarmer extends StatefulWidget {
   const HomeScreenFarmer({Key? key}) : super(key: key);
@@ -88,7 +88,7 @@ class _HomeScreenFarmerState extends State<HomeScreenFarmer> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PolygonScreen()));
+                              builder: (context) => SelectService()));
                     });
                   },
                 ),

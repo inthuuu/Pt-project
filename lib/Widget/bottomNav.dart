@@ -1,9 +1,8 @@
-import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
-import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
-import 'package:drone_for_smart_farming/Screen/whichone.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
+import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
 
 class BottomNavigationBarProvider with ChangeNotifier {
   int _currentIndex = 0;
@@ -24,7 +23,11 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  List<Widget> currentTab = [HomeScreenFarmer(), ProfileFarmer(), whichone()];
+  List<Widget> currentTab = [
+    HomeScreenFarmer(),
+    ProfileFarmer(),
+    ProfileFarmer()
+  ];
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BottomNavigationBarProvider>(context);

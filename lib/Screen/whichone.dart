@@ -1,7 +1,6 @@
-import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
+import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 
 class whichone extends StatefulWidget {
   const whichone({Key? key}) : super(key: key);

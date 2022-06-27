@@ -1,9 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
-import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
-import 'package:flutter/material.dart';
-import 'package:drone_for_smart_farming/Screen/login.dart';
-import 'homescreenframer.dart';
 
 class EditProfileDroneOwner extends StatefulWidget {
   const EditProfileDroneOwner({Key? key}) : super(key: key);

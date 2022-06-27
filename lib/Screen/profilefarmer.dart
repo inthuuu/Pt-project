@@ -1,9 +1,8 @@
-import 'package:drone_for_smart_farming/Screen/editprofilefarmer.dart';
+import 'homescreenframer.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
-
-import 'homescreenframer.dart';
+import 'package:drone_for_smart_farming/Screen/editprofilefarmer.dart';
 
 class ProfileFarmer extends StatefulWidget {
   const ProfileFarmer({Key? key}) : super(key: key);
@@ -14,8 +13,6 @@ class ProfileFarmer extends StatefulWidget {
 
 class _ProfileFarmerState extends State<ProfileFarmer> {
   final _auth = FirebaseAuth.instance;
-  var name = "aaa";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
