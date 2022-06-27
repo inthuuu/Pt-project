@@ -1,6 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable, unused_import
 
-import 'package:drone_for_smart_farming/Screen/drawPolygon.dart';
+import 'package:drone_for_smart_farming/Screen/selectService.dart';
 import 'package:flutter/material.dart';
 import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
 import 'package:provider/provider.dart';
@@ -91,7 +91,7 @@ class _HomeScreenFarmerState extends State<HomeScreenFarmer> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PolygonScreen()));
+                              builder: (context) => SelectService()));
                     });
                   },
                 ),

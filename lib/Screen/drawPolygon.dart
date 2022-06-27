@@ -1,13 +1,16 @@
 // ignore: file_names
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, file_names, duplicate_ignore, unnecessary_null_comparison, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, file_names, duplicate_ignore, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, unused_import
 
 import 'dart:collection';
 
+import 'package:drone_for_smart_farming/Screen/selectService.dart';
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
 import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+
+import '../Widget/bottomNav.dart';
 
 class PolygonScreen extends StatefulWidget {
   const PolygonScreen({Key? key}) : super(key: key);
@@ -82,45 +85,42 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       markers: Set.from(myMarker),
                       polygons: _polygone,
                       onTap: _onAddMarkerButtonPressed),
-                  //get location from marker button
-                  ListView(children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, left: 20),
-                      child: Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.topLeft,
-                            height: 40,
-                            width: 40,
-                            child: FloatingActionButton(
-                              heroTag: 1,
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            HomeScreenFarmer()));
-                              },
-                              backgroundColor: Colors.white,
-                              child: Icon(
-                                Icons.arrow_back_rounded,
-                                color: Colors.black,
-                              ),
+                  //app bar
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 20),
+                    child: Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          height: 40,
+                          width: 40,
+                          child: FloatingActionButton(
+                            heroTag: 1,
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SelectService()));
+                            },
+                            backgroundColor: Colors.white,
+                            child: Icon(
+                              Icons.arrow_back_rounded,
+                              color: Colors.black,
                             ),
                           ),
-                          SizedBox(width: 20),
-                          Text(
-                            'ระบุขอบเขต',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                        SizedBox(width: 20),
+                        Text(
+                          'ระบุขอบเขต',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        )
+                      ],
                     ),
-                  ]),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 80, left: 20),
                     child: Container(
@@ -138,6 +138,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
                           )),
                     ),
                   ),
+                  //undo marker
                   Align(
                     alignment: Alignment(0.95, 0.2),
                     child: FloatingActionButton(
@@ -155,6 +156,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       ),
                     ),
                   ),
+                  //next button
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Container(

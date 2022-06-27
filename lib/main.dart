@@ -2,6 +2,7 @@
 
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
+import 'package:drone_for_smart_farming/service/service_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,12 +23,13 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => Applicationbloc()),
         ChangeNotifierProvider(
-            create: (context) => BottomNavigationBarProvider())
+            create: (context) => BottomNavigationBarProvider()),
+        ChangeNotifierProvider(create: (context) => ManageService())
       ],
       child: MaterialApp(
           title: "My App",
           theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primaryColor: const Color(0xff2f574b),
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Poppins'),
           debugShowCheckedModeBanner: false,
