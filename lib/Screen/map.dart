@@ -1,7 +1,10 @@
+import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'homescreenframer.dart';
 
 class MapsPage extends StatefulWidget {
   @override
@@ -58,6 +61,16 @@ class _MapsPageState extends State<MapsPage> {
         markerId: MarkerId(tappedPoint.toString()),
         position: tappedPoint,
       ));
+      _getAddress();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content:
+                Text('Your location has been send !\n${_currentAddress}  '),
+          );
+        },
+      );
     });
     point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
   }
@@ -82,6 +95,30 @@ class _MapsPageState extends State<MapsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF9FE2BF),
+        title: Column(children: [
+          Container(
+            alignment: Alignment.topLeft,
+            height: 40,
+            width: 40,
+            child: FloatingActionButton(
+              heroTag: 1,
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomeScreenDroneOwner()));
+              },
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ]),
+      ),
       body: SafeArea(
         child: Stack(
           alignment: Alignment.bottomCenter,
@@ -119,27 +156,36 @@ class _MapsPageState extends State<MapsPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  FloatingActionButton.extended(
-                    onPressed: () {
-                      mapController.animateCamera(CameraUpdate.newLatLngZoom(
-                          LatLng(point.latitude, point.longitude), 18));
-                      _getAddress();
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text(
-                                'Your location has been send !\n${_currentAddress}  '),
-                          );
-                        },
-                      );
-                    },
-                    label: Text("Send Location"),
-                    icon: Icon(Icons.near_me),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    height: 60,
+                    width: 280,
+                    child: ElevatedButton(
+                      child: Text(
+                        'Get Location',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xff2f574b),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      onPressed: () {
+                        mapController.animateCamera(CameraUpdate.newLatLngZoom(
+                            LatLng(point.latitude, point.longitude), 18));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreenFarmer()));
+                      },
+                    ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

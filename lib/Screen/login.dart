@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:drone_for_smart_farming/whichone.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:drone_for_smart_farming/Screen/whichone.dart';
 
 enum MobileVerificationState {
   SHOW_MOBILE_FROM_STATE,
@@ -192,28 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
             : currentState == MobileVerificationState.SHOW_MOBILE_FROM_STATE
                 ? getMobileFromWidget(context)
                 : getOtpFromWidget(context),
-        //padding: const EdgeInsets.all(0)
       ),
     );
   }
 }
-
-
-
-                            // SizedBox(
-                            //   height: 55,
-                            //   width: double.infinity,
-                            //   child: ElevatedButton(
-                            //     style: ElevatedButton.styleFrom(
-                            //         primary: Colors.green,
-                            //         onPrimary: Colors.white,
-                            //         shape: RoundedRectangleBorder(
-                            //             borderRadius: BorderRadius.all(
-                            //                 Radius.circular(10)))),
-                            //     child: Text("Verify",
-                            //         style: TextStyle(fontSize: 18)),
-                            //     onPressed: () async {
-
-                            //     },
-                            //   ),
-                            // )

@@ -1,10 +1,13 @@
+import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
+import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
+import 'package:drone_for_smart_farming/Screen/whichone.dart';
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
-import 'package:drone_for_smart_farming/homescreenframer.dart';
-import 'package:drone_for_smart_farming/login.dart';
+import 'package:drone_for_smart_farming/Screen/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'Widget/bottomNav.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,14 +18,18 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Applicationbloc(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Applicationbloc()),
+        ChangeNotifierProvider(
+            create: (context) => BottomNavigationBarProvider())
+      ],
       child: MaterialApp(
           title: "My App",
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              fontFamily: 'Poppins'),
           debugShowCheckedModeBanner: false,
           home: InitializerWidget()),
     );
@@ -52,7 +59,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => Applicationbloc(),
+      create: (context) => BottomNavigationBarProvider(),
       child: isLoading
           ? Scaffold(
               body: Center(
@@ -61,7 +68,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
             )
           : _user == null
               ? LoginScreen()
-              : HomeScreenFarmer(),
+              : whichone(),
     );
   }
 }

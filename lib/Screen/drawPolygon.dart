@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
-import 'package:drone_for_smart_farming/homescreenframer.dart';
+import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +29,6 @@ class _PolygonScreenState extends State<PolygonScreen> {
   //add marker on google map
   void _onAddMarkerButtonPressed(LatLng tappedPoint) {
     setState(() {
-      //myMarker = [];
       myMarker.add(Marker(
         markerId: MarkerId(tappedPoint.toString()),
         position: tappedPoint,
@@ -70,6 +69,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       onMapCreated: _onMapCreated,
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
+                      minMaxZoomPreference: MinMaxZoomPreference(0, 16),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(
                               applicationBloc.currentLocation!.latitude,
@@ -79,44 +79,59 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       polygons: _polygone,
                       onTap: _onAddMarkerButtonPressed),
                   //get location from marker button
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20, left: 20),
-                    child: Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: FloatingActionButton(
-                            heroTag: "",
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreenFarmer()));
-                            },
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.arrow_back_rounded,
-                              color: Colors.black,
+                  ListView(children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, left: 20),
+                      child: Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.topLeft,
+                            height: 40,
+                            width: 40,
+                            child: FloatingActionButton(
+                              heroTag: 1,
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            HomeScreenFarmer()));
+                              },
+                              backgroundColor: Colors.white,
+                              child: Icon(
+                                Icons.arrow_back_rounded,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          alignment: Alignment.topCenter,
-                          child: SizedBox(
-                              height: 60,
-                              width: 250,
-                              child: TextFormField(
-                                initialValue: 'Search place...',
-                                decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10))),
-                              )),
-                        ),
-                      ],
+                          SizedBox(width: 20),
+                          Text(
+                            'ระบุขอบเขต',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ]),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 80, left: 20),
+                    child: Container(
+                      alignment: Alignment.topCenter,
+                      child: SizedBox(
+                          height: 60,
+                          width: 280,
+                          child: TextFormField(
+                            initialValue: 'ค้นหา',
+                            decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                          )),
                     ),
                   ),
                   Align(
@@ -148,7 +163,10 @@ class _PolygonScreenState extends State<PolygonScreen> {
                             child: Text(
                               'ถัดไป',
                               style: TextStyle(
-                                  fontSize: 20, color: Color(0xff2f574b)),
+                                fontSize: 20,
+                                color: Color(0xff2f574b),
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                             style: ElevatedButton.styleFrom(
                                 primary: Colors.white,
