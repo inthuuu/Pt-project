@@ -1,6 +1,6 @@
-import '../Widget/bottomNav.dart';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:drone_for_smart_farming/Screen/map.dart';
 import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
 
@@ -14,7 +14,6 @@ class HomeScreenDroneOwner extends StatefulWidget {
 class _HomeScreenDroneOwnerState extends State<HomeScreenDroneOwner> {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<BottomNavigationBarProvider>(context);
     return Scaffold(
       backgroundColor: Color(0xFF9FE2BF),
       appBar: AppBar(

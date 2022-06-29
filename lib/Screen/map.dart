@@ -1,7 +1,13 @@
-import 'homescreenframer.dart';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, use_key_in_widget_constructors
+
+import 'package:drone_for_smart_farming/Screen/mapScreen.dart';
+import 'package:drone_for_smart_farming/Widget/searchDialog.dart';
+import 'package:drone_for_smart_farming/service/locationController.dart';
+
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 
@@ -65,8 +71,7 @@ class _MapsPageState extends State<MapsPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            content:
-                Text('Your location has been send !\n${_currentAddress}  '),
+            content: Text('${_currentAddress}  '),
           );
         },
       );
@@ -149,40 +154,51 @@ class _MapsPageState extends State<MapsPage> {
                 }
               },
             ),
-            //get location from marker button
+            Positioned(
+              top: 20,
+              left: 30,
+              right: 60,
+              child: InkWell(
+                onTap: () {
+                  Get.dialog(
+                      LocationSearchDialog(mapController: mapController));
+                },
+                child: Container(
+                  height: 60,
+                  width: 250,
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+            ),
+
+            //save location
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    alignment: Alignment.bottomCenter,
-                    height: 60,
-                    width: 280,
-                    child: ElevatedButton(
-                      child: Text(
-                        'Get Location',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xff2f574b),
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {
-                        mapController.animateCamera(CameraUpdate.newLatLngZoom(
-                            LatLng(point.latitude, point.longitude), 18));
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreenFarmer()));
-                      },
+              padding: const EdgeInsets.only(bottom: 20),
+              child: SizedBox(
+                height: 60,
+                width: 280,
+                child: ElevatedButton(
+                  child: Text(
+                    'บันทึก',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                ],
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff2f574b),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => MapScreen()));
+                  },
+                ),
               ),
             ),
           ],

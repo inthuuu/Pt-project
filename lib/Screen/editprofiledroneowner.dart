@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
@@ -40,14 +42,10 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
           SizedBox(
             width: 30,
           ),
-          Container(
-            child: Text(
-              "บัญชีผู้ใช้",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
-            ),
+          Text(
+            "บัญชีผู้ใช้",
+            style: TextStyle(
+                fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
           ),
           SizedBox(
             width: 130,

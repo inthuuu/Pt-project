@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, file_names
+
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

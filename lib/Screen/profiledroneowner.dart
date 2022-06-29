@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
@@ -44,14 +46,10 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
           SizedBox(
             width: 30,
           ),
-          Container(
-            child: Text(
-              "บัญชีผู้ใช้",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
-            ),
+          Text(
+            "บัญชีผู้ใช้",
+            style: TextStyle(
+                fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
           ),
           SizedBox(
             width: 130,
@@ -101,7 +99,7 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
           child: Container(
             alignment: Alignment.topLeft,
             child: Text(
-              "btdngfxmnfxyn",
+              "a name",
               style: TextStyle(
                   fontSize: 18,
                   color: Colors.black,

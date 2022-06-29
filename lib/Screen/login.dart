@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, avoid_types_as_parameter_names, avoid_unnecessary_containers, unused_catch_clause, constant_identifier_names, prefer_final_fields, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/whichone.dart';

@@ -1,7 +1,8 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
 import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
 
 class BottomNavigationBarProvider with ChangeNotifier {
@@ -25,8 +26,8 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   List<Widget> currentTab = [
     HomeScreenFarmer(),
-    ProfileFarmer(),
-    ProfileFarmer()
+    HomeScreenFarmer(),
+    HomeScreenFarmer()
   ];
   @override
   Widget build(BuildContext context) {
