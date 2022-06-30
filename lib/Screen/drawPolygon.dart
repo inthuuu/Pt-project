@@ -63,6 +63,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
         geodesic: true));
   }
 
+  //Search Places
   Future<void> _handlePressButton() async {
     // show input autocomplete with selected mode
     // then get the Prediction selected
