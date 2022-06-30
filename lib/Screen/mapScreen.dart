@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
-
 import '../Widget/searchDialog.dart';
 import '../service/locationController.dart';
 
@@ -10,10 +9,13 @@ class MapScreen extends StatefulWidget {
 
   @override
   State<MapScreen> createState() => _MapScreenState();
+
+  static init() {}
 }
 
 class _MapScreenState extends State<MapScreen> {
   late CameraPosition _cameraPosition;
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +42,7 @@ class _MapScreenState extends State<MapScreen> {
                     },
                     initialCameraPosition: _cameraPosition),
                 Positioned(
-                  top: 100,
+                  top: 20,
                   left: 10,
                   right: 20,
                   child: GestureDetector(
