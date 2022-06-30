@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, file_names
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, file_names, prefer_void_to_null, unnecessary_null_comparison, deprecated_member_use
 
 import 'dart:collection';
 import 'dart:math';

@@ -30,7 +30,7 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeScreenDroneOwner()));
+                        builder: (context) => ProfileDroneOwner()));
               },
               backgroundColor: Colors.white,
               child: Icon(

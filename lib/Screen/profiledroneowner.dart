@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
@@ -34,7 +35,7 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeScreenDroneOwner()));
+                        builder: (context) => BottomNavigationDroneOwner()));
               },
               backgroundColor: Colors.white,
               child: Icon(

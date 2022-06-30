@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, camel_case_types
 
+import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
 import 'package:flutter/material.dart';
-import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 
 import '../Widget/bottomNav.dart';
 
@@ -53,7 +53,7 @@ class _whichoneState extends State<whichone> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HomeScreenDroneOwner()));
+                          builder: (context) => BottomNavigationDroneOwner()));
                 });
               },
               child: ClipRRect(
