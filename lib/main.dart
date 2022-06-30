@@ -1,9 +1,5 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
-
 import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
-import 'package:drone_for_smart_farming/Screen/mapScreen.dart';
 import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
-
 import 'Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +35,7 @@ class MyApp extends StatelessWidget {
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Poppins'),
           debugShowCheckedModeBanner: false,
-          home: InitializerWidget()),
+          home: whichone()),
     );
   }
 }
