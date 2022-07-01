@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, camel_case_types
-
 import 'package:flutter/material.dart';
 import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
-
 import '../Widget/bottomNav.dart';
 
 class whichone extends StatefulWidget {

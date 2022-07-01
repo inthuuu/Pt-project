@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, file_names
-
 import 'dart:collection';
 import 'dart:math';
 import 'package:flutter/material.dart';
