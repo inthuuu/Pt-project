@@ -4,7 +4,6 @@ import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
-import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:drone_for_smart_farming/Screen/editprofiledroneowner.dart';
 
 class ProfileDroneOwner extends StatefulWidget {

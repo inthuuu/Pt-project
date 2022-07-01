@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
 
 class EditProfileDroneOwner extends StatefulWidget {

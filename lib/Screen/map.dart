@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, use_key_in_widget_constructors
-
-import 'dart:math';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, use_key_in_widget_constructors, prefer_typing_uninitialized_variables, prefer_void_to_null, unnecessary_null_comparison, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -9,7 +7,9 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
+import 'package:provider/provider.dart';
 
+import '../blocs/application_bloc.dart';
 import 'homescreendroneowner.dart';
 
 class MapsPage extends StatefulWidget {
@@ -35,34 +35,6 @@ class _MapsPageState extends State<MapsPage> {
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
-  }
-
-  //get current location from user
-  Future<Position> _getLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    userLocation = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    return userLocation;
   }
 
   //add marker on google map
@@ -134,6 +106,7 @@ class _MapsPageState extends State<MapsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final applicationBloc = Provider.of<Applicationbloc>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF9FE2BF),
@@ -159,90 +132,80 @@ class _MapsPageState extends State<MapsPage> {
           ),
         ]),
       ),
-      body: SafeArea(
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            FutureBuilder(
-              future: _getLocation(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return GoogleMap(
+      body: (applicationBloc.currentLocation == null)
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SafeArea(
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  GoogleMap(
                       mapType: MapType.hybrid,
                       onMapCreated: _onMapCreated,
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
+                      minMaxZoomPreference: MinMaxZoomPreference(0, 16),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(
-                              userLocation.latitude, userLocation.longitude),
+                              applicationBloc.currentLocation!.latitude,
+                              applicationBloc.currentLocation!.longitude),
                           zoom: 15),
                       markers: Set.from(myMarker),
-                      onTap: _onAddMarkerButtonPressed);
-                } else {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CircularProgressIndicator(),
-                      ],
-                    ),
-                  );
-                }
-              },
-            ),
-            Positioned(
-              top: 20,
-              left: 30,
-              right: 60,
-              child: SizedBox(
-                height: 60,
-                width: 280,
-                child: ElevatedButton(
-                  onPressed: _handlePressButton,
-                  child: Text(
-                    "ค้นหา",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
+                      onTap: _onAddMarkerButtonPressed),
+                  Positioned(
+                    top: 20,
+                    left: 30,
+                    right: 60,
+                    child: SizedBox(
+                      height: 60,
+                      width: 280,
+                      child: ElevatedButton(
+                        onPressed: _handlePressButton,
+                        child: Text(
+                          "ค้นหา",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                ),
-              ),
-            ),
 
-            //save location
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: SizedBox(
-                height: 60,
-                width: 280,
-                child: ElevatedButton(
-                  child: Text(
-                    'บันทึก',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
+                  //save location
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: SizedBox(
+                      height: 60,
+                      width: 280,
+                      child: ElevatedButton(
+                        child: Text(
+                          'บันทึก',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xff2f574b),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        onPressed: () {},
+                      ),
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xff2f574b),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  onPressed: () {},
-                ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -263,27 +226,4 @@ Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
       SnackBar(content: Text("${p.description} - $lat/$lng")),
     );
   }
-}
-
-class Uuid {
-  final Random _random = Random();
-
-  String generateV4() {
-    // Generate xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx / 8-4-4-4-12.
-    final int special = 8 + _random.nextInt(4);
-
-    return '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}-'
-        '${_bitsDigits(16, 4)}-'
-        '4${_bitsDigits(12, 3)}-'
-        '${_printDigits(special, 1)}${_bitsDigits(12, 3)}-'
-        '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}';
-  }
-
-  String _bitsDigits(int bitCount, int digitCount) =>
-      _printDigits(_generateBits(bitCount), digitCount);
-
-  int _generateBits(int bitCount) => _random.nextInt(1 << bitCount);
-
-  String _printDigits(int value, int count) =>
-      value.toRadixString(16).padLeft(count, '0');
 }
