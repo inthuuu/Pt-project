@@ -1,5 +1,5 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, use_key_in_widget_constructors, prefer_typing_uninitialized_variables, prefer_void_to_null, unnecessary_null_comparison, deprecated_member_use
-
+import 'dart:math';
+import 'package:drone_for_smart_farming/Screen/adddrone.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -10,7 +10,6 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:provider/provider.dart';
 
 import '../blocs/application_bloc.dart';
-import 'homescreendroneowner.dart';
 
 class MapsPage extends StatefulWidget {
   @override
@@ -118,10 +117,8 @@ class _MapsPageState extends State<MapsPage> {
             child: FloatingActionButton(
               heroTag: 1,
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HomeScreenDroneOwner()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => AddDrone()));
               },
               backgroundColor: Colors.white,
               child: Icon(

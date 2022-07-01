@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, camel_case_types
-
-import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
 import 'package:flutter/material.dart';
-
+import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import '../Widget/bottomNav.dart';
+import '../Widget/bottomNavDroneOwner.dart';
 
 class whichone extends StatefulWidget {
   const whichone({Key? key}) : super(key: key);
