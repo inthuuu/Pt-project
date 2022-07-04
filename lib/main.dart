@@ -64,6 +64,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
     return ChangeNotifierProvider(
       create: (context) => BottomNavigationBarProvider(),
       child: isLoading
+          // ignore: prefer_const_constructors
           ? Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),

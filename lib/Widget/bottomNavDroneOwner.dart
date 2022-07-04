@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:drone_for_smart_farming/Screen/homescreenframer.dart';
 
 import '../Screen/homescreendroneowner.dart';
 

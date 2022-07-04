@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
-import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:drone_for_smart_farming/Screen/editprofiledroneowner.dart';
+
+import '../Widget/bottomNavDroneOwner.dart';
 
 class ProfileDroneOwner extends StatefulWidget {
   const ProfileDroneOwner({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeScreenDroneOwner()));
+                        builder: (context) => BottomNavigationDroneOwner()));
               },
               backgroundColor: Colors.white,
               child: Icon(

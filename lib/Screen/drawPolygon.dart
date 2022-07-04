@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +28,8 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   Set<Polygon> _polygone = HashSet<Polygon>();
   List<LatLng> points = [];
+
+  static late CameraPosition _kLocation;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -61,19 +62,18 @@ class _PolygonScreenState extends State<PolygonScreen> {
         geodesic: true));
   }
 
+  //Search Places
   Future<void> _handlePressButton() async {
     // show input autocomplete with selected mode
     // then get the Prediction selected
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
       apiKey: kGoogleApiKey,
-      //onError: onError,
       strictbounds: false,
       mode: Mode.overlay,
       language: "th",
-      types: ["(cities)"],
+      types: [""],
       hint: "Search City",
-      //startText: city == null || city == "" ? "" : city,
       decoration: InputDecoration(
         hintText: 'ค้นหา',
         fillColor: Color(0xff2f574b),
@@ -86,8 +86,28 @@ class _PolygonScreenState extends State<PolygonScreen> {
       ),
       components: [Component(Component.country, "th")],
     );
+  }
 
-    displayPrediction(p!, homeScaffoldKey.currentState!);
+  void onError(PlacesAutocompleteResponse response) {
+    homeScaffoldKey.currentState!
+        .showBottomSheet((context) => Text(response.errorMessage!));
+  }
+
+  Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+    GoogleMapsPlaces _places = GoogleMapsPlaces(
+      apiKey: kGoogleApiKey,
+      apiHeaders: await const GoogleApiHeaders().getHeaders(),
+    );
+
+    PlacesDetailsResponse detail =
+        await _places.getDetailsByPlaceId(p.placeId!);
+    final lat = detail.result.geometry?.location.lat;
+    final lng = detail.result.geometry?.location.lng;
+
+    setState(() {
+      mapController
+          .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat!, lng!), 14.0));
+    });
   }
 
   @override
@@ -159,7 +179,9 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       height: 60,
                       width: 280,
                       child: ElevatedButton(
-                        onPressed: _handlePressButton,
+                        onPressed: () {
+                          _handlePressButton();
+                        },
                         child: Text(
                           "ค้นหา",
                           style: TextStyle(
@@ -224,45 +246,4 @@ class _PolygonScreenState extends State<PolygonScreen> {
             ),
     );
   }
-}
-
-Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-  if (p != null) {
-    GoogleMapsPlaces _places = GoogleMapsPlaces(
-      apiKey: kGoogleApiKey,
-      apiHeaders: await GoogleApiHeaders().getHeaders(),
-    );
-
-    PlacesDetailsResponse detail =
-        await _places.getDetailsByPlaceId(p.placeId!);
-    final lat = detail.result.geometry?.location.lat;
-    final lng = detail.result.geometry?.location.lng;
-
-    scaffold.showSnackBar(
-      SnackBar(content: Text("${p.description} - $lat/$lng")),
-    );
-  }
-}
-
-class Uuid {
-  final Random _random = Random();
-
-  String generateV4() {
-    // Generate xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx / 8-4-4-4-12.
-    final int special = 8 + _random.nextInt(4);
-
-    return '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}-'
-        '${_bitsDigits(16, 4)}-'
-        '4${_bitsDigits(12, 3)}-'
-        '${_printDigits(special, 1)}${_bitsDigits(12, 3)}-'
-        '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}';
-  }
-
-  String _bitsDigits(int bitCount, int digitCount) =>
-      _printDigits(_generateBits(bitCount), digitCount);
-
-  int _generateBits(int bitCount) => _random.nextInt(1 << bitCount);
-
-  String _printDigits(int value, int count) =>
-      value.toRadixString(16).padLeft(count, '0');
 }

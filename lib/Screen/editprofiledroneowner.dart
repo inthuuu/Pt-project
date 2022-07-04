@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
 
 class EditProfileDroneOwner extends StatefulWidget {
@@ -28,7 +27,7 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeScreenDroneOwner()));
+                        builder: (context) => ProfileDroneOwner()));
               },
               backgroundColor: Colors.white,
               child: Icon(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import '../Widget/bottomNav.dart';
+import '../Widget/bottomNavDroneOwner.dart';
 
 class whichone extends StatefulWidget {
   const whichone({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class _whichoneState extends State<whichone> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HomeScreenDroneOwner()));
+                          builder: (context) => BottomNavigationDroneOwner()));
                 });
               },
               child: ClipRRect(
