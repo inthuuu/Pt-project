@@ -72,7 +72,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
       strictbounds: false,
       mode: Mode.overlay,
       language: "th",
-      types: ["(cities)"],
+      types: [""],
       hint: "Search City",
       decoration: InputDecoration(
         hintText: 'ค้นหา',
@@ -88,30 +88,26 @@ class _PolygonScreenState extends State<PolygonScreen> {
     );
   }
 
-  //display result searching on google map
-  Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-    if (p != null) {
-      GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: kGoogleApiKey,
-        apiHeaders: await GoogleApiHeaders().getHeaders(),
-      );
-
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(p.placeId!);
-      final lat = detail.result.geometry?.location.lat;
-      final lng = detail.result.geometry?.location.lng;
-
-      displayPrediction(p, homeScaffoldKey.currentState!);
-      _kLocation = CameraPosition(target: LatLng(lat!, lng!), zoom: 10);
-
-      scaffold.showSnackBar(
-        SnackBar(content: Text("${p.description} - $lat/$lng")),
-      );
-    }
+  void onError(PlacesAutocompleteResponse response) {
+    homeScaffoldKey.currentState!
+        .showBottomSheet((context) => Text(response.errorMessage!));
   }
 
-  Future<void> _goToLocation() async {
-    mapController.animateCamera(CameraUpdate.newCameraPosition(_kLocation));
+  Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+    GoogleMapsPlaces _places = GoogleMapsPlaces(
+      apiKey: kGoogleApiKey,
+      apiHeaders: await const GoogleApiHeaders().getHeaders(),
+    );
+
+    PlacesDetailsResponse detail =
+        await _places.getDetailsByPlaceId(p.placeId!);
+    final lat = detail.result.geometry?.location.lat;
+    final lng = detail.result.geometry?.location.lng;
+
+    setState(() {
+      mapController
+          .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat!, lng!), 14.0));
+    });
   }
 
   @override
@@ -185,7 +181,6 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           _handlePressButton();
-                          _goToLocation();
                         },
                         child: Text(
                           "ค้นหา",

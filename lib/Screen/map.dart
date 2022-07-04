@@ -80,13 +80,12 @@ class _MapsPageState extends State<MapsPage> {
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
       apiKey: kGoogleApiKey,
-      //onError: onError,
+      onError: onError,
       strictbounds: false,
       mode: Mode.overlay,
       language: "th",
-      types: ["(cities)"],
+      types: [""],
       hint: "Search City",
-      startText: city == null || city == "" ? "" : city,
       decoration: InputDecoration(
         hintText: 'ค้นหา',
         fillColor: Color(0xff2f574b),
@@ -101,6 +100,28 @@ class _MapsPageState extends State<MapsPage> {
     );
 
     displayPrediction(p!, homeScaffoldKey.currentState!);
+  }
+
+  void onError(PlacesAutocompleteResponse response) {
+    homeScaffoldKey.currentState!
+        .showBottomSheet((context) => Text(response.errorMessage!));
+  }
+
+  Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+    GoogleMapsPlaces _places = GoogleMapsPlaces(
+      apiKey: kGoogleApiKey,
+      apiHeaders: await const GoogleApiHeaders().getHeaders(),
+    );
+
+    PlacesDetailsResponse detail =
+        await _places.getDetailsByPlaceId(p.placeId!);
+    final lat = detail.result.geometry?.location.lat;
+    final lng = detail.result.geometry?.location.lng;
+
+    setState(() {});
+
+    mapController
+        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat!, lng!), 14.0));
   }
 
   @override
@@ -203,24 +224,6 @@ class _MapsPageState extends State<MapsPage> {
                 ],
               ),
             ),
-    );
-  }
-}
-
-Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-  if (p != null) {
-    GoogleMapsPlaces _places = GoogleMapsPlaces(
-      apiKey: kGoogleApiKey,
-      apiHeaders: await GoogleApiHeaders().getHeaders(),
-    );
-
-    PlacesDetailsResponse detail =
-        await _places.getDetailsByPlaceId(p.placeId!);
-    final lat = detail.result.geometry?.location.lat;
-    final lng = detail.result.geometry?.location.lng;
-
-    scaffold.showSnackBar(
-      SnackBar(content: Text("${p.description} - $lat/$lng")),
     );
   }
 }
