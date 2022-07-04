@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:math';
 import 'package:drone_for_smart_farming/Screen/adddrone.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:provider/provider.dart';
-
 import '../blocs/application_bloc.dart';
 
 class MapsPage extends StatefulWidget {
@@ -17,14 +17,18 @@ class MapsPage extends StatefulWidget {
 }
 
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
-final searchScaffoldKey = GlobalKey<ScaffoldState>();
+//final searchScaffoldKey = GlobalKey<ScaffoldState>();
 const kGoogleApiKey = "AIzaSyCUk9-9SOgcWJNMpNV8tGncMsVhnqnhNf8";
 
 class _MapsPageState extends State<MapsPage> {
   late GoogleMapController mapController;
   late CameraPosition kGooglePlex;
-
   late Position userLocation;
+
+  static const CameraPosition initialCameraPosition = CameraPosition(target: LatLng(37.42796, -122.08574), zoom: 14.0);
+  Set<Marker> markersList = {};
+  final Mode _mode = Mode.overlay;
+
 
   List<Marker> myMarker = [];
   late LatLng point = LatLng(userLocation.latitude, userLocation.longitude);
@@ -75,8 +79,6 @@ class _MapsPageState extends State<MapsPage> {
   }
 
   Future<void> _handlePressButton() async {
-    // show input autocomplete with selected mode
-    // then get the Prediction selected
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
       apiKey: kGoogleApiKey,
@@ -99,7 +101,7 @@ class _MapsPageState extends State<MapsPage> {
       components: [Component(Component.country, "th")],
     );
 
-    displayPrediction(p!, homeScaffoldKey.currentState!);
+    displayPrediction(p!,homeScaffoldKey.currentState);
   }
 
   void onError(PlacesAutocompleteResponse response) {
@@ -107,7 +109,8 @@ class _MapsPageState extends State<MapsPage> {
         .showBottomSheet((context) => Text(response.errorMessage!));
   }
 
-  Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+  Future<void> displayPrediction(Prediction p, ScaffoldState? scaffold) async {
+    
     GoogleMapsPlaces _places = GoogleMapsPlaces(
       apiKey: kGoogleApiKey,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
@@ -115,13 +118,14 @@ class _MapsPageState extends State<MapsPage> {
 
     PlacesDetailsResponse detail =
         await _places.getDetailsByPlaceId(p.placeId!);
-    final lat = detail.result.geometry?.location.lat;
-    final lng = detail.result.geometry?.location.lng;
+    final lat = detail.result.geometry!.location.lat;
+    final lng = detail.result.geometry!.location.lng;
+
 
     setState(() {});
 
     mapController
-        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat!, lng!), 14.0));
+        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
   }
 
   @override
