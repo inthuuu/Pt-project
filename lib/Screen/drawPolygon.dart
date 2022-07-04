@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_final_fields
+
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -16,7 +18,6 @@ class PolygonScreen extends StatefulWidget {
 }
 
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
-final searchScaffoldKey = GlobalKey<ScaffoldState>();
 const kGoogleApiKey = "AIzaSyCUk9-9SOgcWJNMpNV8tGncMsVhnqnhNf8";
 
 class _PolygonScreenState extends State<PolygonScreen> {
@@ -76,7 +77,6 @@ class _PolygonScreenState extends State<PolygonScreen> {
       hint: "Search City",
       decoration: InputDecoration(
         hintText: 'ค้นหา',
-        fillColor: Color(0xff2f574b),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(
@@ -86,6 +86,8 @@ class _PolygonScreenState extends State<PolygonScreen> {
       ),
       components: [Component(Component.country, "th")],
     );
+
+    displayPrediction(p!, homeScaffoldKey.currentState!);
   }
 
   void onError(PlacesAutocompleteResponse response) {
@@ -101,12 +103,12 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
     PlacesDetailsResponse detail =
         await _places.getDetailsByPlaceId(p.placeId!);
-    final lat = detail.result.geometry?.location.lat;
-    final lng = detail.result.geometry?.location.lng;
+    final lat = detail.result.geometry!.location.lat;
+    final lng = detail.result.geometry!.location.lng;
 
     setState(() {
       mapController
-          .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat!, lng!), 14.0));
+          .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
     });
   }
 
