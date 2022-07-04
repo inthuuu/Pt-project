@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
 import 'package:drone_for_smart_farming/Screen/map.dart';
 import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
 import 'package:flutter/material.dart';
 import '../Widget/checkbox.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class AddDrone extends StatefulWidget {
   const AddDrone({Key? key}) : super(key: key);
