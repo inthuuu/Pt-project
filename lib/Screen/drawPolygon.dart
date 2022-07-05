@@ -29,8 +29,10 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   Set<Polygon> _polygone = HashSet<Polygon>();
   List<LatLng> points = [];
+  List<LatLng> newPoint = [];
 
-  static late CameraPosition _kLocation;
+  List<LatLng> upperLng = [];
+  List<LatLng> lowerLng = [];
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -46,6 +48,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
     });
     point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
     points.add(point);
+    _boundaryArea(points);
 
     setState(() {
       _setPolygon();
@@ -56,25 +59,67 @@ class _PolygonScreenState extends State<PolygonScreen> {
   void _setPolygon() {
     _polygone.add(Polygon(
         polygonId: PolygonId('1'),
-        points: points,
+        points: newPoint,
         strokeColor: Colors.deepPurple,
         strokeWidth: 5,
         fillColor: Colors.deepPurple.withOpacity(0.1),
         geodesic: true));
   }
 
-  //Search Places
+  void _boundaryArea(List<LatLng> points) {
+    quickSort(points, 0, points.length - 1);
+
+    for (int i = 0; i < points.length; i++) {
+      if (points[i].longitude >= points.first.longitude) {
+        upperLng.add(points[i]);
+      } else {
+        lowerLng.add(points[i]);
+      }
+
+      newPoint.clear();
+      newPoint = [...upperLng, ...lowerLng.reversed];
+    }
+  }
+
+  void swap(List<LatLng> points, int i, int j) {
+    var temp = points[i];
+    points[i] = points[j];
+    points[j] = temp;
+  }
+
+  partition(List<LatLng> points, var low, var high) {
+    //pivot
+    var pivot = points[high].latitude;
+
+    int i = (low - 1);
+    for (int j = low; j <= high - 1; j++) {
+      if (points[j].latitude < pivot) {
+        i++;
+        swap(points, i, j);
+      }
+    }
+    return (i + 1);
+  }
+
+  void quickSort(List<LatLng> points, int low, int high) {
+    if (low < high) {
+      int pi = partition(points, low, high);
+
+      quickSort(points, low, pi - 1);
+      quickSort(points, pi + 1, high);
+    }
+  }
+
+  //search location
   Future<void> _handlePressButton() async {
-    // show input autocomplete with selected mode
-    // then get the Prediction selected
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
       apiKey: kGoogleApiKey,
+      onError: onError,
       strictbounds: false,
       mode: Mode.overlay,
       language: "th",
       types: [""],
-      hint: "Search City",
       decoration: InputDecoration(
         hintText: 'ค้นหา',
         focusedBorder: OutlineInputBorder(
@@ -87,7 +132,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
       components: [Component(Component.country, "th")],
     );
 
-    displayPrediction(p!, homeScaffoldKey.currentState!);
+    displayPrediction(p!, homeScaffoldKey.currentState);
   }
 
   void onError(PlacesAutocompleteResponse response) {
@@ -95,7 +140,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
         .showBottomSheet((context) => Text(response.errorMessage!));
   }
 
-  Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+  Future<void> displayPrediction(Prediction p, ScaffoldState? scaffold) async {
     GoogleMapsPlaces _places = GoogleMapsPlaces(
       apiKey: kGoogleApiKey,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
@@ -106,10 +151,8 @@ class _PolygonScreenState extends State<PolygonScreen> {
     final lat = detail.result.geometry!.location.lat;
     final lng = detail.result.geometry!.location.lng;
 
-    setState(() {
-      mapController
-          .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
-    });
+    mapController
+        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 15.0));
   }
 
   @override
@@ -173,33 +216,49 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       ],
                     ),
                   ),
-                  Positioned(
-                    top: 70,
-                    left: 50,
-                    right: 60,
-                    child: SizedBox(
-                      height: 60,
-                      width: 280,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _handlePressButton();
-                        },
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        child: Text('old' + points.toString(),
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 20)),
+                      ),
+                      Container(
                         child: Text(
-                          "ค้นหา",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                          'new' + newPoint.toString(),
+                          style: TextStyle(color: Colors.red, fontSize: 20),
                         ),
                       ),
-                    ),
+                    ],
                   ),
+                  // Positioned(
+                  //   top: 70,
+                  //   left: 50,
+                  //   right: 60,
+                  //   child: SizedBox(
+                  //     height: 60,
+                  //     width: 280,
+                  //     child: ElevatedButton(
+                  //       onPressed: () {
+                  //         _handlePressButton();
+                  //       },
+                  //       child: Text(
+                  //         "ค้นหา",
+                  //         style: TextStyle(
+                  //           fontSize: 20,
+                  //           color: Colors.black,
+                  //           fontWeight: FontWeight.w700,
+                  //         ),
+                  //       ),
+                  //       style: ElevatedButton.styleFrom(
+                  //         primary: Colors.white,
+                  //         shape: RoundedRectangleBorder(
+                  //             borderRadius: BorderRadius.circular(10)),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   //undo marker
                   Align(
                     alignment: Alignment(0.95, 0.2),
