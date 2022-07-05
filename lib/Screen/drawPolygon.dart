@@ -28,7 +28,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   Set<Polygon> _polygone = HashSet<Polygon>();
   List<LatLng> points = [];
-  List<LatLng> points2 = [];
+  List<LatLng> pointsSort = [];
   List<LatLng> newPoint = [];
 
   List<LatLng> upperLng = [];
@@ -56,7 +56,11 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   //draw polygon on google map
   void _setPolygon() {
-    _boundaryArea(points);
+    //sort lat, long
+    pointsSort = [...points];
+    _boundaryArea(pointsSort);
+
+    //draw polygon
     _polygone.clear();
     _polygone.add(Polygon(
         polygonId: PolygonId('1'),
@@ -67,56 +71,55 @@ class _PolygonScreenState extends State<PolygonScreen> {
         geodesic: true));
   }
 
-  void _boundaryArea(List<LatLng> points) {
-    points2 = points;
+  void _boundaryArea(List<LatLng> pointsSort) {
     //sort latitude
-    quickSort(points2, 0, points.length - 1);
+    quickSort(pointsSort, 0, pointsSort.length - 1);
     upperLng = [];
     lowerLng = [];
     var sum = 0.0;
-    for (var i = 0; i < points2.length; i++) {
-      sum += (points2[i].longitude);
+    for (var i = 0; i < pointsSort.length; i++) {
+      sum += (pointsSort[i].longitude);
     }
     var avg = sum / points.length;
     //sort l
-    for (int i = 0; i < points2.length; i++) {
-      if (points2[i].longitude > avg) {
-        upperLng.add(points2[i]);
+    for (int i = 0; i < pointsSort.length; i++) {
+      if (pointsSort[i].longitude > avg) {
+        upperLng.add(pointsSort[i]);
       } else {
-        lowerLng.add(points2[i]);
+        lowerLng.add(pointsSort[i]);
       }
       newPoint = [];
       newPoint = [...lowerLng, ...upperLng.reversed];
     }
   }
 
-  void swap(List<LatLng> points, int i, int j) {
-    var temp = points[i];
-    points[i] = points[j];
-    points[j] = temp;
+  void swap(List<LatLng> pointsSort, int i, int j) {
+    var temp = pointsSort[i];
+    pointsSort[i] = pointsSort[j];
+    pointsSort[j] = temp;
   }
 
-  partition(List<LatLng> points, var low, var high) {
+  partition(List<LatLng> pointsSort, var low, var high) {
     //pivot
-    var pivot = points[high].latitude;
+    var pivot = pointsSort[high].latitude;
 
     int i = (low - 1);
     for (int j = low; j <= high - 1; j++) {
-      if (points[j].latitude < pivot) {
+      if (pointsSort[j].latitude < pivot) {
         i++;
-        swap(points, i, j);
+        swap(pointsSort, i, j);
       }
     }
-    swap(points2, i + 1, high);
+    swap(pointsSort, i + 1, high);
     return (i + 1);
   }
 
-  void quickSort(List<LatLng> points, int low, int high) {
+  void quickSort(List<LatLng> pointsSort, int low, int high) {
     if (low < high) {
-      int pi = partition(points, low, high);
+      int pi = partition(pointsSort, low, high);
 
-      quickSort(points, low, pi - 1);
-      quickSort(points, pi + 1, high);
+      quickSort(pointsSort, low, pi - 1);
+      quickSort(pointsSort, pi + 1, high);
     }
   }
 
@@ -270,6 +273,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       ),
                     ),
                   ),
+
                   //next button
                   Padding(
                     padding: const EdgeInsets.all(20.0),
