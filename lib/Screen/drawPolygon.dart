@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields
 import 'dart:collection';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:provider/provider.dart';
@@ -29,8 +28,11 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   Set<Polygon> _polygone = HashSet<Polygon>();
   List<LatLng> points = [];
+  List<LatLng> points2 = [];
+  List<LatLng> newPoint = [];
 
-  static late CameraPosition _kLocation;
+  List<LatLng> upperLng = [];
+  List<LatLng> lowerLng = [];
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -44,8 +46,8 @@ class _PolygonScreenState extends State<PolygonScreen> {
         position: tappedPoint,
       ));
     });
+
     point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
-    //print(point.toString());
     setState(() {
       points.add(point);
       _setPolygon();
@@ -54,30 +56,82 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   //draw polygon on google map
   void _setPolygon() {
+    _boundaryArea(points);
+    _polygone.clear();
     _polygone.add(Polygon(
-        polygonId: PolygonId('3'),
-        points: points,
+        polygonId: PolygonId('1'),
+        points: newPoint,
         strokeColor: Colors.deepPurple,
         strokeWidth: 5,
         fillColor: Colors.deepPurple.withOpacity(0.1),
         geodesic: true));
   }
 
-  //Search Places
+  void _boundaryArea(List<LatLng> points) {
+    points2 = points;
+    //sort latitude
+    quickSort(points2, 0, points.length - 1);
+    upperLng = [];
+    lowerLng = [];
+    var sum = 0.0;
+    for (var i = 0; i < points2.length; i++) {
+      sum += (points2[i].longitude);
+    }
+    var avg = sum / points.length;
+    //sort l
+    for (int i = 0; i < points2.length; i++) {
+      if (points2[i].longitude > avg) {
+        upperLng.add(points2[i]);
+      } else {
+        lowerLng.add(points2[i]);
+      }
+      newPoint = [];
+      newPoint = [...lowerLng, ...upperLng.reversed];
+    }
+  }
+
+  void swap(List<LatLng> points, int i, int j) {
+    var temp = points[i];
+    points[i] = points[j];
+    points[j] = temp;
+  }
+
+  partition(List<LatLng> points, var low, var high) {
+    //pivot
+    var pivot = points[high].latitude;
+
+    int i = (low - 1);
+    for (int j = low; j <= high - 1; j++) {
+      if (points[j].latitude < pivot) {
+        i++;
+        swap(points, i, j);
+      }
+    }
+    swap(points2, i + 1, high);
+    return (i + 1);
+  }
+
+  void quickSort(List<LatLng> points, int low, int high) {
+    if (low < high) {
+      int pi = partition(points, low, high);
+
+      quickSort(points, low, pi - 1);
+      quickSort(points, pi + 1, high);
+    }
+  }
+
+  //search location
   Future<void> _handlePressButton() async {
-    // show input autocomplete with selected mode
-    // then get the Prediction selected
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
       apiKey: kGoogleApiKey,
+      onError: onError,
       strictbounds: false,
       mode: Mode.overlay,
       language: "th",
       types: [""],
-      hint: "Search City",
       decoration: InputDecoration(
         hintText: 'ค้นหา',
-        fillColor: Color(0xff2f574b),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(
@@ -107,7 +161,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
     final lng = detail.result.geometry!.location.lng;
 
     mapController
-        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
+        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 15.0));
   }
 
   @override
@@ -203,8 +257,8 @@ class _PolygonScreenState extends State<PolygonScreen> {
                     alignment: Alignment(0.95, 0.2),
                     child: FloatingActionButton(
                       onPressed: () {
-                        points.remove(points.last);
                         myMarker.remove(myMarker.last);
+                        points.remove(points.last);
                         setState(() {
                           _setPolygon();
                         });

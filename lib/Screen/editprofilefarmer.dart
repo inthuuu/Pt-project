@@ -26,10 +26,8 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
             child: FloatingActionButton(
               heroTag: 1,
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HomeScreenFarmer()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => ProfileFarmer()));
               },
               backgroundColor: Colors.white,
               child: Icon(
@@ -41,13 +39,15 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
           SizedBox(
             width: 30,
           ),
-          Text(
-            "บัญชีผู้ใช้",
-            style: TextStyle(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
-          ),
           SizedBox(
-            width: 130,
+            width: MediaQuery.of(context).size.width / 2,
+            child: Text(
+              "บัญชีผู้ใช้",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
         ]),
       ),

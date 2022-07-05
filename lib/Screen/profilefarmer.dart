@@ -46,13 +46,15 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
           SizedBox(
             width: 30,
           ),
-          Text(
-            "บัญชีผู้ใช้",
-            style: TextStyle(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.w600),
-          ),
           SizedBox(
-            width: 130,
+            width: MediaQuery.of(context).size.width / 2,
+            child: Text(
+              "บัญชีผู้ใช้",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
           SizedBox(
             height: 40,
@@ -83,11 +85,6 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
       body: StreamBuilder<Object>(
           stream: null,
           builder: (context, snapshot) {
-            // if (!snapshot.hasData) {
-            //   return Center(
-            //     child: CircularProgressIndicator(),
-            //   );
-            // }
             return Column(children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),

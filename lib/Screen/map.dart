@@ -69,6 +69,7 @@ class _MapsPageState extends State<MapsPage> {
     }
   }
 
+  //search location
   Future<void> _handlePressButton() async {
     Prediction? p = await PlacesAutocomplete.show(
       context: context,
@@ -78,10 +79,8 @@ class _MapsPageState extends State<MapsPage> {
       mode: Mode.overlay,
       language: "th",
       types: [""],
-      hint: "Search City",
       decoration: InputDecoration(
         hintText: 'ค้นหา',
-        fillColor: Color(0xff2f574b),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(
@@ -111,7 +110,7 @@ class _MapsPageState extends State<MapsPage> {
     final lng = detail.result.geometry!.location.lng;
 
     mapController
-        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
+        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 18.0));
   }
 
   @override
@@ -153,7 +152,8 @@ class _MapsPageState extends State<MapsPage> {
                       onMapCreated: _onMapCreated,
                       myLocationEnabled: true,
                       zoomControlsEnabled: true,
-                      minMaxZoomPreference: MinMaxZoomPreference(0, 16),
+                      zoomGesturesEnabled: true,
+                      minMaxZoomPreference: MinMaxZoomPreference(0, 18),
                       initialCameraPosition: CameraPosition(
                           target: LatLng(
                               applicationBloc.currentLocation!.latitude,
