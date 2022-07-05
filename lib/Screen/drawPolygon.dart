@@ -75,8 +75,6 @@ class _PolygonScreenState extends State<PolygonScreen> {
       } else {
         lowerLng.add(points[i]);
       }
-
-      newPoint.clear();
       newPoint = [...upperLng, ...lowerLng.reversed];
     }
   }
@@ -221,8 +219,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
                     children: [
                       Container(
                         child: Text('old' + points.toString(),
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20)),
+                            style: TextStyle(color: Colors.blue, fontSize: 20)),
                       ),
                       Container(
                         child: Text(
@@ -265,6 +262,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
                     child: FloatingActionButton(
                       onPressed: () {
                         points.remove(points.last);
+                        newPoint.remove(newPoint.last);
                         myMarker.remove(myMarker.last);
                         setState(() {
                           _setPolygon();
@@ -278,30 +276,30 @@ class _PolygonScreenState extends State<PolygonScreen> {
                     ),
                   ),
                   //next button
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                        alignment: FractionalOffset.bottomCenter,
-                        child: SizedBox(
-                          height: 60,
-                          width: 280,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              'ถัดไป',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff2f574b),
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                          ),
-                        )),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(20.0),
+                  //   child: Container(
+                  //       alignment: FractionalOffset.bottomCenter,
+                  //       child: SizedBox(
+                  //         height: 60,
+                  //         width: 280,
+                  //         child: ElevatedButton(
+                  //           onPressed: () {},
+                  //           child: Text(
+                  //             'ถัดไป',
+                  //             style: TextStyle(
+                  //               fontSize: 20,
+                  //               color: Color(0xff2f574b),
+                  //               fontWeight: FontWeight.w700,
+                  //             ),
+                  //           ),
+                  //           style: ElevatedButton.styleFrom(
+                  //               primary: Colors.white,
+                  //               shape: RoundedRectangleBorder(
+                  //                   borderRadius: BorderRadius.circular(10))),
+                  //         ),
+                  //       )),
+                  // ),
                 ],
               ),
             ),
