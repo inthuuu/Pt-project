@@ -29,6 +29,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   Set<Polygon> _polygone = HashSet<Polygon>();
   List<LatLng> points = [];
+  List<LatLng> points2 = [];
   List<LatLng> newPoint = [];
 
   List<LatLng> upperLng = [];
@@ -46,9 +47,9 @@ class _PolygonScreenState extends State<PolygonScreen> {
         position: tappedPoint,
       ));
     });
+
     point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
     points.add(point);
-    _boundaryArea(points);
 
     setState(() {
       _setPolygon();
@@ -57,6 +58,8 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
   //draw polygon on google map
   void _setPolygon() {
+    _boundaryArea(points);
+    _polygone.clear();
     _polygone.add(Polygon(
         polygonId: PolygonId('1'),
         points: newPoint,
@@ -67,15 +70,22 @@ class _PolygonScreenState extends State<PolygonScreen> {
   }
 
   void _boundaryArea(List<LatLng> points) {
-    quickSort(points, 0, points.length - 1);
+    points2 = points;
+    //sort latitude
+    quickSort(points2, 0, points.length - 1);
+    upperLng = [];
+    lowerLng = [];
 
-    for (int i = 0; i < points.length; i++) {
-      if (points[i].longitude >= points.first.longitude) {
-        upperLng.add(points[i]);
+    //sort l
+    for (int i = 0; i < points2.length; i++) {
+      if (points2[i].longitude > points2.first.longitude) {
+        upperLng.add(points2[i]);
       } else {
-        lowerLng.add(points[i]);
+        lowerLng.add(points2[i]);
       }
-      newPoint = [...upperLng, ...lowerLng.reversed];
+
+      newPoint = [];
+      newPoint = [...lowerLng, ...upperLng.reversed];
     }
   }
 
@@ -96,6 +106,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
         swap(points, i, j);
       }
     }
+    swap(points2, i + 1, high);
     return (i + 1);
   }
 
@@ -214,48 +225,33 @@ class _PolygonScreenState extends State<PolygonScreen> {
                       ],
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        child: Text('old' + points.toString(),
-                            style: TextStyle(color: Colors.blue, fontSize: 20)),
-                      ),
-                      Container(
+                  Positioned(
+                    top: 70,
+                    left: 50,
+                    right: 60,
+                    child: SizedBox(
+                      height: 60,
+                      width: 280,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _handlePressButton();
+                        },
                         child: Text(
-                          'new' + newPoint.toString(),
-                          style: TextStyle(color: Colors.red, fontSize: 20),
+                          "ค้นหา",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                  // Positioned(
-                  //   top: 70,
-                  //   left: 50,
-                  //   right: 60,
-                  //   child: SizedBox(
-                  //     height: 60,
-                  //     width: 280,
-                  //     child: ElevatedButton(
-                  //       onPressed: () {
-                  //         _handlePressButton();
-                  //       },
-                  //       child: Text(
-                  //         "ค้นหา",
-                  //         style: TextStyle(
-                  //           fontSize: 20,
-                  //           color: Colors.black,
-                  //           fontWeight: FontWeight.w700,
-                  //         ),
-                  //       ),
-                  //       style: ElevatedButton.styleFrom(
-                  //         primary: Colors.white,
-                  //         shape: RoundedRectangleBorder(
-                  //             borderRadius: BorderRadius.circular(10)),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   //undo marker
                   Align(
                     alignment: Alignment(0.95, 0.2),
@@ -276,30 +272,30 @@ class _PolygonScreenState extends State<PolygonScreen> {
                     ),
                   ),
                   //next button
-                  // Padding(
-                  //   padding: const EdgeInsets.all(20.0),
-                  //   child: Container(
-                  //       alignment: FractionalOffset.bottomCenter,
-                  //       child: SizedBox(
-                  //         height: 60,
-                  //         width: 280,
-                  //         child: ElevatedButton(
-                  //           onPressed: () {},
-                  //           child: Text(
-                  //             'ถัดไป',
-                  //             style: TextStyle(
-                  //               fontSize: 20,
-                  //               color: Color(0xff2f574b),
-                  //               fontWeight: FontWeight.w700,
-                  //             ),
-                  //           ),
-                  //           style: ElevatedButton.styleFrom(
-                  //               primary: Colors.white,
-                  //               shape: RoundedRectangleBorder(
-                  //                   borderRadius: BorderRadius.circular(10))),
-                  //         ),
-                  //       )),
-                  // ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                        alignment: FractionalOffset.bottomCenter,
+                        child: SizedBox(
+                          height: 60,
+                          width: 280,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              'ถัดไป',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xff2f574b),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                          ),
+                        )),
+                  ),
                 ],
               ),
             ),
