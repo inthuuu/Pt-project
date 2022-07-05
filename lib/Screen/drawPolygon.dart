@@ -1,4 +1,6 @@
+// ignore_for_file: prefer_const_constructors, prefer_final_fields
 import 'dart:collection';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +18,6 @@ class PolygonScreen extends StatefulWidget {
 }
 
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
-final searchScaffoldKey = GlobalKey<ScaffoldState>();
 const kGoogleApiKey = "AIzaSyCUk9-9SOgcWJNMpNV8tGncMsVhnqnhNf8";
 
 class _PolygonScreenState extends State<PolygonScreen> {
@@ -44,9 +45,9 @@ class _PolygonScreenState extends State<PolygonScreen> {
       ));
     });
     point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
-    points.add(point);
-
+    //print(point.toString());
     setState(() {
+      points.add(point);
       _setPolygon();
     });
   }
@@ -54,7 +55,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
   //draw polygon on google map
   void _setPolygon() {
     _polygone.add(Polygon(
-        polygonId: PolygonId('1'),
+        polygonId: PolygonId('3'),
         points: points,
         strokeColor: Colors.deepPurple,
         strokeWidth: 5,
@@ -86,6 +87,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
       ),
       components: [Component(Component.country, "th")],
     );
+    displayPrediction(p!, homeScaffoldKey.currentState);
   }
 
   void onError(PlacesAutocompleteResponse response) {
@@ -93,7 +95,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
         .showBottomSheet((context) => Text(response.errorMessage!));
   }
 
-  Future<void> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+  Future<void> displayPrediction(Prediction p, ScaffoldState? scaffold) async {
     GoogleMapsPlaces _places = GoogleMapsPlaces(
       apiKey: kGoogleApiKey,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
@@ -101,13 +103,11 @@ class _PolygonScreenState extends State<PolygonScreen> {
 
     PlacesDetailsResponse detail =
         await _places.getDetailsByPlaceId(p.placeId!);
-    final lat = detail.result.geometry?.location.lat;
-    final lng = detail.result.geometry?.location.lng;
+    final lat = detail.result.geometry!.location.lat;
+    final lng = detail.result.geometry!.location.lng;
 
-    setState(() {
-      mapController
-          .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat!, lng!), 14.0));
-    });
+    mapController
+        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
   }
 
   @override

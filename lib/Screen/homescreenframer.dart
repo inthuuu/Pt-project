@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class _HomeScreenFarmerState extends State<HomeScreenFarmer> {
         ],
         actionsIconTheme: IconThemeData(size: 50.0, color: Colors.black),
         title: Column(
+          // ignore: prefer_const_literals_to_create_immutables
           children: [
             Align(
                 alignment: Alignment.topLeft,

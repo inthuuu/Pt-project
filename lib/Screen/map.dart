@@ -1,5 +1,4 @@
-import 'dart:developer';
-import 'dart:math';
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_brace_in_string_interps
 import 'package:drone_for_smart_farming/Screen/adddrone.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -17,7 +16,6 @@ class MapsPage extends StatefulWidget {
 }
 
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
-//final searchScaffoldKey = GlobalKey<ScaffoldState>();
 const kGoogleApiKey = "AIzaSyCUk9-9SOgcWJNMpNV8tGncMsVhnqnhNf8";
 
 class _MapsPageState extends State<MapsPage> {
@@ -25,16 +23,9 @@ class _MapsPageState extends State<MapsPage> {
   late CameraPosition kGooglePlex;
   late Position userLocation;
 
-  static const CameraPosition initialCameraPosition = CameraPosition(target: LatLng(37.42796, -122.08574), zoom: 14.0);
-  Set<Marker> markersList = {};
-  final Mode _mode = Mode.overlay;
-
-
   List<Marker> myMarker = [];
   late LatLng point = LatLng(userLocation.latitude, userLocation.longitude);
   String _currentAddress = '';
-
-  var city;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -100,8 +91,7 @@ class _MapsPageState extends State<MapsPage> {
       ),
       components: [Component(Component.country, "th")],
     );
-
-    displayPrediction(p!,homeScaffoldKey.currentState);
+    displayPrediction(p!, homeScaffoldKey.currentState);
   }
 
   void onError(PlacesAutocompleteResponse response) {
@@ -110,7 +100,6 @@ class _MapsPageState extends State<MapsPage> {
   }
 
   Future<void> displayPrediction(Prediction p, ScaffoldState? scaffold) async {
-    
     GoogleMapsPlaces _places = GoogleMapsPlaces(
       apiKey: kGoogleApiKey,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
@@ -120,9 +109,6 @@ class _MapsPageState extends State<MapsPage> {
         await _places.getDetailsByPlaceId(p.placeId!);
     final lat = detail.result.geometry!.location.lat;
     final lng = detail.result.geometry!.location.lng;
-
-
-    setState(() {});
 
     mapController
         .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));

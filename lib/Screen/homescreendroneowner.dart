@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:drone_for_smart_farming/Screen/adddrone.dart';
 import 'package:flutter/material.dart';
 import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
@@ -32,6 +33,7 @@ class _HomeScreenDroneOwnerState extends State<HomeScreenDroneOwner> {
         ],
         actionsIconTheme: IconThemeData(size: 50.0, color: Colors.black),
         title: Column(
+          // ignore: prefer_const_literals_to_create_immutables
           children: [
             Align(
                 alignment: Alignment.topLeft,

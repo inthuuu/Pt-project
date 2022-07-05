@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:firebase_core/firebase_core.dart';
 import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
@@ -82,11 +83,11 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
       body: StreamBuilder<Object>(
           stream: null,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+            // if (!snapshot.hasData) {
+            //   return Center(
+            //     child: CircularProgressIndicator(),
+            //   );
+            // }
             return Column(children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),

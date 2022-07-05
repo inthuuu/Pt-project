@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
-
 import 'package:drone_for_smart_farming/service/service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

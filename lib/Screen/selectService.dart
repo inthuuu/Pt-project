@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 import 'package:drone_for_smart_farming/Screen/drawPolygon.dart';
 import 'package:drone_for_smart_farming/Widget/calendar.dart';
 import 'package:drone_for_smart_farming/Widget/checkbox.dart';

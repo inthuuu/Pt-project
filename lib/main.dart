@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, duplicate_ignore
 import 'Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +65,6 @@ class _InitializerWidgetState extends State<InitializerWidget> {
     return ChangeNotifierProvider(
       create: (context) => BottomNavigationBarProvider(),
       child: isLoading
-          // ignore: prefer_const_constructors
           ? Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
