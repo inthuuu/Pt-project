@@ -8,8 +8,6 @@ class ManageService with ChangeNotifier {
     Service(name: 'หว่านปุ๋ย และฉีดพ่นสารเคมีกำจัดแมลงศัตรูพืช'),
   ];
 
-  bool isFirstTime = false;
-
   List<Service> getService() {
     return services;
   }

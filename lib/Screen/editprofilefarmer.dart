@@ -229,7 +229,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
 
-                              if (!ManageService().isFirstTime) {
+                              if (ProfileProvider().isFirstTime) {
                                 FirebaseFirestore.instance
                                     .collection("profileFarmer")
                                     .doc(_auth.currentUser!.uid)
@@ -239,6 +239,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                                   "address": profile.address,
                                   "area": profile.area,
                                 });
+                                ProfileProvider().setIsFirstTime();
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
