@@ -76,6 +76,7 @@ class _PolygonScreenState extends State<PolygonScreen> {
     quickSort(pointsSort, 0, pointsSort.length - 1);
     upperLng = [];
     lowerLng = [];
+    
     var sum = 0.0;
     for (var i = 0; i < pointsSort.length; i++) {
       sum += (pointsSort[i].longitude);
