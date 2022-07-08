@@ -16,11 +16,14 @@ class EditProfileDroneOwner extends StatefulWidget {
 
 class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
   final formKey = GlobalKey<FormState>();
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
+  final _auth = FirebaseAuth.instance;
+
   ProfileDroneOwnerModel myProfileDroneOwnerModel =
       ProfileDroneOwnerModel(name: "", phone: "", address: "");
-  final Future<FirebaseApp> firebase = Firebase.initializeApp();
   CollectionReference _profileDroneCollection =
       FirebaseFirestore.instance.collection("profileDroneOwners");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -206,26 +209,25 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    await _profileDroneCollection
-                        .doc('gMi4XaR1CjOZONmEod0z')
-                        .update({
+                    await _profileDroneCollection.add({
                       "name": myProfileDroneOwnerModel.name,
                       "phone": myProfileDroneOwnerModel.phone,
                       "address": myProfileDroneOwnerModel.address
                     });
+                    // await _profileDroneCollection
+                    //     .doc(_auth.currentUser?.uid)
+                    //     .update({
+                    //   "name": myProfileDroneOwnerModel.name,
+                    //   "phone": myProfileDroneOwnerModel.phone,
+                    //   "address": myProfileDroneOwnerModel.address
+                    // });
                     formKey.currentState?.reset();
-                  }
-                  // else
-                  //   await _profileDroneCollection.add({
-                  //     "name": myProfileDroneOwnerModel.name,
-                  //     "phone": myProfileDroneOwnerModel.phone,
-                  //     "address": myProfileDroneOwnerModel.address
-                  //   });
-
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileDroneOwner()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileDroneOwner()));
+                  } else
+                    ;
                 },
               ),
             ),

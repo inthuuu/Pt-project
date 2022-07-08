@@ -90,108 +90,120 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
                 child: CircularProgressIndicator(),
               );
             }
-            return Column(children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "ชื่อ",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600),
+            snapshot.data?.docs.map((document) {
+              return Column(children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 20, 0, 0),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "ชื่อ",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    snapshot.data!.docs[0]["name"].toString(),
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      //snapshot.data!.docs[0]["name"].toString()
+                      document["name"],
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "เบอร์โทร",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "เบอร์โทร",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    snapshot.data!.docs[0]["phone"].toString(),
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      //snapshot.data!.docs[0]["phone"].toString(),
+                      document["phone"],
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "ที่อยู่",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 30, 0, 0),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "ที่อยู่",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    snapshot.data!.docs[0]["address"].toString(),
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 20, 0, 0),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      //snapshot.data!.docs[0]["address"].toString(),
+                      document["address"],
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 250,
-              ),
-              SizedBox(
-                height: 55,
-                width: 350,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.red,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)))),
-                  child: Text("ออกจากระบบ",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                  onPressed: () async {
-                    await _auth.signOut();
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  },
+                SizedBox(
+                  height: 250,
                 ),
-              ),
-            ]);
+                SizedBox(
+                  height: 55,
+                  width: 350,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        onPrimary: Colors.red,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10)))),
+                    child: Text("ออกจากระบบ",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                    onPressed: () async {
+                      await _auth.signOut();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
+                  ),
+                ),
+              ]);
+            });
+            return Scaffold(
+              backgroundColor: Colors.black,
+              body: Center(child: EditProfileDroneOwner()),
+            );
           }),
     );
   }

@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, duplicate_ignore
 import 'package:drone_for_smart_farming/Screen/editProfileroneOwner.dart';
-
+import 'package:drone_for_smart_farming/blocs/profileProvider.dart';
 import 'Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) => BottomNavigationBarProvider()),
         ChangeNotifierProvider(create: (context) => ManageService()),
+        ChangeNotifierProvider(create: (context) => ProfileProvider()),
         ChangeNotifierProvider(
             create: (context) => BottomNavigationBarProvider2())
       ],
@@ -74,7 +75,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
             )
           : _user == null
               ? LoginScreen()
-              : EditProfileDroneOwner(),
+              : whichone(),
     );
   }
 }
