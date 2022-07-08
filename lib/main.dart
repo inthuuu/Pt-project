@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, duplicate_ignore
+import 'package:drone_for_smart_farming/Screen/editProfileroneOwner.dart';
+
 import 'Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: 'Poppins'),
           debugShowCheckedModeBanner: false,
-          home: whichone()),
+          home: InitializerWidget()),
     );
   }
 }
@@ -72,7 +74,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
             )
           : _user == null
               ? LoginScreen()
-              : whichone(),
+              : EditProfileDroneOwner(),
     );
   }
 }

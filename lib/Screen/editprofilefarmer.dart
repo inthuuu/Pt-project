@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
+import 'package:drone_for_smart_farming/Screen/profileFarmer.dart';
 import 'package:flutter/material.dart';
-import 'homescreenframer.dart';
+import 'homeScreenFarmer.dart';
 
 class EditProfileFarmer extends StatefulWidget {
   const EditProfileFarmer({Key? key}) : super(key: key);

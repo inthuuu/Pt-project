@@ -80,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   filled: true,
                   fillColor: Colors.white,
                   labelText: "Phone Number"),
+              keyboardType: TextInputType.phone,
             )),
             SizedBox(
               height: 25,
@@ -147,6 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: otpController,
               decoration: InputDecoration(
                   filled: true, fillColor: Colors.white, labelText: "OTP"),
+              keyboardType: TextInputType.phone,
             )),
             SizedBox(
               height: 25,

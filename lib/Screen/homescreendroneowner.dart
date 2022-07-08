@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:drone_for_smart_farming/Screen/adddrone.dart';
+import 'package:drone_for_smart_farming/Screen/addDrone.dart';
 import 'package:flutter/material.dart';
-import 'package:drone_for_smart_farming/Screen/profiledroneowner.dart';
+import 'package:drone_for_smart_farming/Screen/profileDroneOwner.dart';
 
 class HomeScreenDroneOwner extends StatefulWidget {
   const HomeScreenDroneOwner({Key? key}) : super(key: key);

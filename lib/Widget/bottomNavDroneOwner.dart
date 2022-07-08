@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import '../Screen/homescreendroneowner.dart';
+import '../Screen/homeScreenDroneOwner.dart';
 
 class BottomNavigationBarProvider2 with ChangeNotifier {
   int _currentIndex = 0;
