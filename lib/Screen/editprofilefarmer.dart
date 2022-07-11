@@ -8,7 +8,6 @@ import '../blocs/profileProvider.dart';
 import '../model/profile.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import '../service/service_provider.dart';
 import 'profilefarmer.dart';
 
 class EditProfileFarmer extends StatefulWidget {
