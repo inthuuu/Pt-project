@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../Widget/checkbox.dart';
 import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:drone_for_smart_farming/Screen/homeScreenDroneOwner.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class AddDrone extends StatefulWidget {
@@ -348,10 +347,8 @@ class _AddDroneState extends State<AddDrone> {
                   ),
                   onPressed: () {
                     uploadFile();
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DroneList()));
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => DroneList()));
                   },
                 ),
               ),

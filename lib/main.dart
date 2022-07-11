@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, duplicate_ignore
-import 'package:drone_for_smart_farming/Screen/editProfileroneOwner.dart';
 import 'package:drone_for_smart_farming/blocs/profileProvider.dart';
 import 'Widget/bottomNav.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'homeScreenFarmer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +9,6 @@ import '../blocs/profileProvider.dart';
 import '../model/profile.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import '../service/service_provider.dart';
 import 'profilefarmer.dart';
 
 class EditProfileFarmer extends StatefulWidget {
@@ -231,37 +229,42 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
 
-                              if (ProfileProvider().isFirstTime) {
-                                FirebaseFirestore.instance
-                                    .collection("profileFarmer")
-                                    .doc(_auth.currentUser!.uid)
-                                    .set({
-                                  "name": profile.name,
-                                  "phone": profile.phone,
-                                  "address": profile.address,
-                                  "area": profile.area,
-                                });
-                                ProfileProvider().setIsFirstTime();
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfileFarmer()));
-                              } else {
-                                DocumentReference storeReference =
-                                    FirebaseFirestore.instance
-                                        .collection("profileFarmer")
-                                        .doc(_auth.currentUser!.uid);
-                                await storeReference.update({
-                                  "name": profile.name,
-                                  "phone": profile.phone,
-                                  "address": profile.address,
-                                  "area": profile.area,
-                                });
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfileFarmer()));
-                              }
+                              var userRef = FirebaseFirestore.instance
+                                  .collection(
+                                      "profileFarmer " + _auth.currentUser!.uid)
+                                  .doc("id");
+
+                              userRef.get().then((documentSnapshot) => {
+                                    if (!documentSnapshot.exists)
+                                      {
+                                        userRef.set({
+                                          "name": profile.name,
+                                          "phone": profile.phone,
+                                          "address": profile.address,
+                                          "area": profile.area,
+                                        }),
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProfileFarmer()))
+                                      }
+                                    else
+                                      {
+                                        userRef.update({
+                                          "name": profile.name,
+                                          "phone": profile.phone,
+                                          "address": profile.address,
+                                          "area": profile.area,
+                                        }),
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProfileFarmer()))
+                                      }
+                                  });
+
                               // Navigator.pop(context);
                             }
                           },
