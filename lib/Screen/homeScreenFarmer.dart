@@ -3,7 +3,7 @@
 import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:drone_for_smart_farming/Screen/profilefarmer.dart';
+import 'package:drone_for_smart_farming/Screen/profileFarmer.dart';
 import 'package:drone_for_smart_farming/Screen/selectService.dart';
 
 class HomeScreenFarmer extends StatefulWidget {

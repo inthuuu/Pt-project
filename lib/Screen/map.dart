@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_brace_in_string_interps
-import 'package:drone_for_smart_farming/Screen/adddrone.dart';
+import 'package:drone_for_smart_farming/Screen/addDrone.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';

@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:flutter/material.dart';
+import 'homeScreenFarmer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +10,7 @@ import '../blocs/profileProvider.dart';
 import '../model/profile.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
+import '../service/service_provider.dart';
 import 'profilefarmer.dart';
 
 class EditProfileFarmer extends StatefulWidget {

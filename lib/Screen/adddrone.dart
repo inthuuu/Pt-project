@@ -1,12 +1,13 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new, avoid_print, avoid_unnecessary_containers
 import 'dart:io';
+import 'package:drone_for_smart_farming/Screen/droneList.dart';
 import 'package:drone_for_smart_farming/Screen/map.dart';
 import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
 import 'package:flutter/material.dart';
 import '../Widget/checkbox.dart';
 import 'package:path/path.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:drone_for_smart_farming/Screen/homescreendroneowner.dart';
+import 'package:drone_for_smart_farming/Screen/homeScreenDroneOwner.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class AddDrone extends StatefulWidget {
@@ -350,7 +351,7 @@ class _AddDroneState extends State<AddDrone> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HomeScreenDroneOwner()));
+                            builder: (context) => DroneList()));
                   },
                 ),
               ),

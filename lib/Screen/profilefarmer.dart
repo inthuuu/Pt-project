@@ -7,7 +7,7 @@ import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
-import 'package:drone_for_smart_farming/Screen/editprofilefarmer.dart';
+import 'package:drone_for_smart_farming/Screen/editProfileFarmer.dart';
 
 import '../model/profile.dart';
 
