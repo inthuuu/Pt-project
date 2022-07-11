@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import '../Widget/bottomNav.dart';
 import 'homeScreenFarmer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,7 +60,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ProfileFarmer()));
+                                builder: (context) => BottomNavigation()));
                       },
                       backgroundColor: Colors.white,
                       child: Icon(

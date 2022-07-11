@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
+import 'package:drone_for_smart_farming/blocs/profileDroneProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:drone_for_smart_farming/model/profileDroneOwnerModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,14 +21,18 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   final _auth = FirebaseAuth.instance;
+  //bool isFirstTime = false;
 
   ProfileDroneOwnerModel myProfileDroneOwnerModel =
       ProfileDroneOwnerModel(name: "", phone: "", address: "");
-  CollectionReference _profileDroneCollection =
-      FirebaseFirestore.instance.collection("profileDroneOwners");
+
+  // CollectionReference _profileDroneCollection =
+  //     FirebaseFirestore.instance.collection("profileDroneOwners");
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ProfileDroneProvider>(context);
+    //print(ProfileDroneProvider().isFirstTime);
     return Scaffold(
       backgroundColor: Color(0xFF9FE2BF),
       appBar: AppBar(
@@ -42,7 +49,7 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProfileDroneOwner()));
+                        builder: (context) => BottomNavigationDroneOwner()));
               },
               backgroundColor: Colors.white,
               child: Icon(
@@ -91,6 +98,7 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                 onSaved: (String? name) {
                   myProfileDroneOwnerModel.name = name!;
                 },
+                initialValue: provider.name,
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -132,8 +140,9 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                 onSaved: (String? phone) {
                   myProfileDroneOwnerModel.phone = phone!;
                 },
+                initialValue: provider.phone,
                 textAlign: TextAlign.center,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'Enter a product name eg. pension',
                   hintStyle: TextStyle(fontSize: 16),
@@ -173,6 +182,7 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                 onSaved: (String? address) {
                   myProfileDroneOwnerModel.address = address!;
                 },
+                initialValue: provider.address,
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -209,25 +219,37 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    await _profileDroneCollection.add({
-                      "name": myProfileDroneOwnerModel.name,
-                      "phone": myProfileDroneOwnerModel.phone,
-                      "address": myProfileDroneOwnerModel.address
-                    });
-                    // await _profileDroneCollection
-                    //     .doc(_auth.currentUser?.uid)
-                    //     .update({
-                    //   "name": myProfileDroneOwnerModel.name,
-                    //   "phone": myProfileDroneOwnerModel.phone,
-                    //   "address": myProfileDroneOwnerModel.address
-                    // });
-                    formKey.currentState?.reset();
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProfileDroneOwner()));
-                  } else
-                    ;
+                    if (ProfileDroneProvider().isFirstTime) {
+                      FirebaseFirestore.instance
+                          .collection("profileDroneOwners")
+                          .doc(_auth.currentUser!.uid)
+                          .set({
+                        "name": myProfileDroneOwnerModel.name,
+                        "phone": myProfileDroneOwnerModel.phone,
+                        "address": myProfileDroneOwnerModel.address
+                      });
+                     ProfileDroneProvider().isFirstTime = false;
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileDroneOwner()));
+                    } else {
+                      DocumentReference storeReference = FirebaseFirestore
+                          .instance
+                          .collection("profileDroneOwners")
+                          .doc(_auth.currentUser!.uid);
+                      await storeReference.update({
+                        "name": myProfileDroneOwnerModel.name,
+                        "phone": myProfileDroneOwnerModel.phone,
+                        "address": myProfileDroneOwnerModel.address
+                      });
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileDroneOwner()));
+                    }
+                    // Navigator.pop(context);
+                  }
                 },
               ),
             ),
@@ -237,3 +259,29 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
     );
   }
 }
+
+
+
+
+                // onPressed: () async {
+                //   if (formKey.currentState!.validate()) {
+                //     formKey.currentState!.save();
+                //     await _profileDroneCollection.add({
+                //       "name": myProfileDroneOwnerModel.name,
+                //       "phone": myProfileDroneOwnerModel.phone,
+                //       "address": myProfileDroneOwnerModel.address
+                //     });
+                //     // await _profileDroneCollection
+                //     //     .doc(_auth.currentUser?.uid)
+                //     //     .update({
+                //     //   "name": myProfileDroneOwnerModel.name,
+                //     //   "phone": myProfileDroneOwnerModel.phone,
+                //     //   "address": myProfileDroneOwnerModel.address
+                //     // });
+                //     formKey.currentState?.reset();
+                //     Navigator.pushReplacement(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => ProfileDroneOwner()));
+                //   }
+                // },

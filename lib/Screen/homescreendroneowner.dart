@@ -3,6 +3,8 @@ import 'package:drone_for_smart_farming/Screen/addDrone.dart';
 import 'package:flutter/material.dart';
 import 'package:drone_for_smart_farming/Screen/profileDroneOwner.dart';
 
+import 'editProfileroneOwner.dart';
+
 class HomeScreenDroneOwner extends StatefulWidget {
   const HomeScreenDroneOwner({Key? key}) : super(key: key);
 
