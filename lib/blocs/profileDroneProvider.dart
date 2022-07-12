@@ -9,9 +9,11 @@ class ProfileDroneProvider with ChangeNotifier {
 
   bool isFirstTime = true;
 
-  void setIsFirstTime() {
-    isFirstTime = false;
-    notifyListeners();
+  void setIsFirstTime(bool booleanChange) {
+    //booleanChange = false;
+    isFirstTime = booleanChange;
+    // isFirstTime = false;
+    // notifyListeners();
   }
 
   void getProfile(var name, var phone, var address) {

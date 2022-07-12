@@ -21,13 +21,18 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   final _auth = FirebaseAuth.instance;
-  //bool isFirstTime = false;
 
   ProfileDroneOwnerModel myProfileDroneOwnerModel =
       ProfileDroneOwnerModel(name: "", phone: "", address: "");
 
   // CollectionReference _profileDroneCollection =
   //     FirebaseFirestore.instance.collection("profileDroneOwners");
+
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +233,8 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
                         "phone": myProfileDroneOwnerModel.phone,
                         "address": myProfileDroneOwnerModel.address
                       });
-                     ProfileDroneProvider().isFirstTime = false;
+                      ProfileDroneProvider().setIsFirstTime;
+                      print(ProfileDroneProvider().isFirstTime);
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -259,29 +265,3 @@ class _EditProfileDroneOwnerState extends State<EditProfileDroneOwner> {
     );
   }
 }
-
-
-
-
-                // onPressed: () async {
-                //   if (formKey.currentState!.validate()) {
-                //     formKey.currentState!.save();
-                //     await _profileDroneCollection.add({
-                //       "name": myProfileDroneOwnerModel.name,
-                //       "phone": myProfileDroneOwnerModel.phone,
-                //       "address": myProfileDroneOwnerModel.address
-                //     });
-                //     // await _profileDroneCollection
-                //     //     .doc(_auth.currentUser?.uid)
-                //     //     .update({
-                //     //   "name": myProfileDroneOwnerModel.name,
-                //     //   "phone": myProfileDroneOwnerModel.phone,
-                //     //   "address": myProfileDroneOwnerModel.address
-                //     // });
-                //     formKey.currentState?.reset();
-                //     Navigator.pushReplacement(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => ProfileDroneOwner()));
-                //   }
-                // },

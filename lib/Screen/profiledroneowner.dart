@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone_for_smart_farming/blocs/profileDroneProvider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,13 +22,28 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
   //final formKey = GlobalKey<FormState>();
   //final Future<FirebaseApp> firebase = Firebase.initializeApp();
   final _auth = FirebaseAuth.instance;
-  //bool isFirstTime = false;
+  bool isExits = true;
+
+  Future<bool> check(bool isExits) async {
+    isExits = this.isExits;
+    CollectionReference users =
+        FirebaseFirestore.instance.collection("ProfileDroneOwners ");
+    var doc = await users.doc(_auth.currentUser!.uid).get();
+    if (!doc.exists) {
+      //falseเข้า
+      isExits = false;
+      print(isExits);
+    }
+    return isExits;
+  }
 
   @override
   Widget build(BuildContext context) {
-    ProfileDroneProvider().setIsFirstTime();
-    print(ProfileDroneProvider().isFirstTime);
-    return (ProfileDroneProvider().isFirstTime)
+    //ProfileDroneProvider().setIsFirstTime;
+    //print(ProfileDroneProvider().isFirstTime);
+    check(isExits);
+    //print(isExits);
+    return (check(isExits))
         ? EditProfileDroneOwner()
         : StreamBuilder(
             stream: FirebaseFirestore.instance
@@ -38,7 +55,6 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
                   child: CircularProgressIndicator(),
                 );
               }
-              //snapshot.data?.docs.map((document) {
               return Scaffold(
                   backgroundColor: Color(0xFF9FE2BF),
                   appBar: AppBar(
@@ -215,11 +231,6 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
                     ),
                   ]));
             });
-    // return Scaffold(
-    //   backgroundColor: Colors.black,
-    //   body: Center(child: CircularProgressIndicator()),
-    // );
-    //});
   }
 }
 
