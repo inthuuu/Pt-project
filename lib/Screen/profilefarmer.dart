@@ -30,21 +30,22 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
 
   bool checkExits(String docID) {
     FirebaseFirestore.instance
-        .collection("ProfileFarmer " + _auth.currentUser!.uid)
+        .collection("profileFarmer " + _auth.currentUser!.uid)
         .doc(docID)
         .get()
         .then((value) => {
               if (value.exists) {isExits = true} else {isExits = false}
             });
+    print(isExits);
     return isExits;
   }
 
   @override
   Widget build(BuildContext context) {
-    print(isExits);
+    //print(isExits);
     var provider = Provider.of<ProfileProvider>(context);
     checkExits(_auth.currentUser!.uid);
-    print(isExits);
+    //print(isExits);
     return (checkExits(_auth.currentUser!.uid))
         ? EditProfileFarmer()
         : StreamBuilder(

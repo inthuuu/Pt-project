@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
 import 'package:drone_for_smart_farming/Screen/editProfileroneOwner.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../Widget/bottomNavDroneOwner.dart';
 
@@ -24,29 +25,31 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
   final _auth = FirebaseAuth.instance;
   bool isExits = true;
 
-  Future<bool> checkExits(String docID) async {
-    // FirebaseFirestore.instance
-    //     .collection("ProfileFarmer " + _auth.currentUser!.uid)
-    //     .doc(docID)
-    //     .get()
-    //     .then((value) => {
-    //           if (value.exists) {isExits = true} else {isExits = false}
-    //         });
-    // return isExits;
-    CollectionReference users =
-        FirebaseFirestore.instance.collection("ProfileDroneOwners ");
-    var doc = await users.doc(_auth.currentUser!.uid).get();
-    if (!doc.exists) {
-      isExits = false;
-      //print(isExits);
-    }
+  // Future<bool> checkExits() async {
+  //   CollectionReference users =
+  //       FirebaseFirestore.instance.collection("ProfileDroneOwners");
+  //   var doc = await users.doc(_auth.currentUser!.uid).get();
+  //   if (!doc.exists) {
+  //     isExits = false;
+  //   }
+  //   return isExits;
+  // }
+
+    bool checkExits(String docID) {
+    FirebaseFirestore.instance
+        .collection("profileDroneOwners")
+        .doc(docID)
+        .get()
+        .then((value) => {
+              if (value.exists) {isExits = true} else {isExits = false}
+            });
     return isExits;
   }
 
+
   @override
   Widget build(BuildContext context) {
-    checkExits(_auth.currentUser!.uid);
-    print(checkExits(_auth.currentUser!.uid));
+    //checkExits();
     return (checkExits(_auth.currentUser!.uid))
         ? EditProfileDroneOwner()
         : StreamBuilder(
