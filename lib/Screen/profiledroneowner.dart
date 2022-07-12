@@ -24,17 +24,30 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
   final _auth = FirebaseAuth.instance;
   bool isExits = true;
 
-  void check() async {
+  Future<bool> checkExits(String docID) async {
+    // FirebaseFirestore.instance
+    //     .collection("ProfileFarmer " + _auth.currentUser!.uid)
+    //     .doc(docID)
+    //     .get()
+    //     .then((value) => {
+    //           if (value.exists) {isExits = true} else {isExits = false}
+    //         });
+    // return isExits;
+    CollectionReference users =
+        FirebaseFirestore.instance.collection("ProfileDroneOwners ");
+    var doc = await users.doc(_auth.currentUser!.uid).get();
+    if (!doc.exists) {
+      isExits = false;
+      //print(isExits);
+    }
+    return isExits;
   }
-
 
   @override
   Widget build(BuildContext context) {
-    //ProfileDroneProvider().setIsFirstTime;
-    //print(ProfileDroneProvider().isFirstTime);
-    check();
-    //print(isExits);
-    return (check(_auth.currentUser!.uid))
+    checkExits(_auth.currentUser!.uid);
+    print(checkExits(_auth.currentUser!.uid));
+    return (checkExits(_auth.currentUser!.uid))
         ? EditProfileDroneOwner()
         : StreamBuilder(
             stream: FirebaseFirestore.instance
