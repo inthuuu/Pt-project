@@ -24,26 +24,17 @@ class _ProfileDroneOwnerState extends State<ProfileDroneOwner> {
   final _auth = FirebaseAuth.instance;
   bool isExits = true;
 
-  Future<bool> check(bool isExits) async {
-    isExits = this.isExits;
-    CollectionReference users =
-        FirebaseFirestore.instance.collection("ProfileDroneOwners ");
-    var doc = await users.doc(_auth.currentUser!.uid).get();
-    if (!doc.exists) {
-      //falseเข้า
-      isExits = false;
-      print(isExits);
-    }
-    return isExits;
+  void check() async {
   }
+
 
   @override
   Widget build(BuildContext context) {
     //ProfileDroneProvider().setIsFirstTime;
     //print(ProfileDroneProvider().isFirstTime);
-    check(isExits);
+    check();
     //print(isExits);
-    return (check(isExits))
+    return (check(_auth.currentUser!.uid))
         ? EditProfileDroneOwner()
         : StreamBuilder(
             stream: FirebaseFirestore.instance
