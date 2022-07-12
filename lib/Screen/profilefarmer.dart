@@ -28,10 +28,10 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
 
   bool isExits = true;
 
-  bool checkExits(String docID) {
+  bool checkExits() {
     FirebaseFirestore.instance
         .collection("ProfileFarmer " + _auth.currentUser!.uid)
-        .doc(docID)
+        .doc(_auth.currentUser!.uid)
         .get()
         .then((value) => {
               if (value.exists) {isExits = true} else {isExits = false}
@@ -42,9 +42,7 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ProfileProvider>(context);
-    checkExits(_auth.currentUser!.uid);
-    print(isExits);
-    return (checkExits(_auth.currentUser!.uid))
+    return (!checkExits())
         ? EditProfileFarmer()
         : StreamBuilder(
             stream: FirebaseFirestore.instance
