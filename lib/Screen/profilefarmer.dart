@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_constructors, avoid_types_as_parameter_names
-
+// ignore_for_file: prefer_const_constructors
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone_for_smart_farming/blocs/profileProvider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:provider/provider.dart';
 import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
@@ -28,24 +28,21 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
 
   bool isExits = true;
 
-  bool checkExits(String docID) {
+  @override
+  void initState() {
+    super.initState();
     FirebaseFirestore.instance
         .collection("ProfileFarmer " + _auth.currentUser!.uid)
-        .doc(docID)
+        .doc("id")
         .get()
-        .then((value) => {
-              if (value.exists) {isExits = true} else {isExits = false}
-            });
-    return isExits;
+        .then((docSnapshot) => {isExits = docSnapshot.exists});
   }
 
   @override
   Widget build(BuildContext context) {
     print(isExits);
     var provider = Provider.of<ProfileProvider>(context);
-    checkExits(_auth.currentUser!.uid);
-    print(isExits);
-    return (checkExits(_auth.currentUser!.uid))
+    return (!isExits)
         ? EditProfileFarmer()
         : StreamBuilder(
             stream: FirebaseFirestore.instance

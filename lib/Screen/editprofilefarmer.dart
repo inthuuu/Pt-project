@@ -234,7 +234,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                               var userRef = FirebaseFirestore.instance
                                   .collection(
                                       "profileFarmer " + _auth.currentUser!.uid)
-                                  .doc(_auth.currentUser!.uid);
+                                  .doc("id");
 
                               userRef.get().then((documentSnapshot) => {
                                     if (!documentSnapshot.exists)
