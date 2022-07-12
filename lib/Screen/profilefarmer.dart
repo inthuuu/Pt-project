@@ -41,6 +41,7 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
 
   @override
   Widget build(BuildContext context) {
+    print(isExits);
     var provider = Provider.of<ProfileProvider>(context);
     return (!checkExits())
         ? EditProfileFarmer()

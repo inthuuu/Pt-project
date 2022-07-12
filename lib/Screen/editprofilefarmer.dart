@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import '../Widget/bottomNav.dart';
+import 'homeScreenFarmer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -58,7 +60,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ProfileFarmer()));
+                                builder: (context) => BottomNavigation()));
                       },
                       backgroundColor: Colors.white,
                       child: Icon(
@@ -232,7 +234,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                               var userRef = FirebaseFirestore.instance
                                   .collection(
                                       "profileFarmer " + _auth.currentUser!.uid)
-                                  .doc(_auth.currentUser!.uid);
+                                  .doc("id");
 
                               userRef.get().then((documentSnapshot) => {
                                     if (!documentSnapshot.exists)
