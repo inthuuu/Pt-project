@@ -25,14 +25,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Applicationbloc()),
-        ChangeNotifierProvider(
-            create: (context) => BottomNavigationBarProvider()),
+        ChangeNotifierProvider(create: (context) => BottomNavigationBarProvider()),
         ChangeNotifierProvider(create: (context) => ManageService()),
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
-        ChangeNotifierProvider(
-            create: (context) => BottomNavigationBarProvider2()),
-        ChangeNotifierProvider(
-            create: (context) => ProfileDroneProvider()),
+        ChangeNotifierProvider(create: (context) => BottomNavigationBarProvider2()),
+        ChangeNotifierProvider(create: (context) => ProfileDroneProvider()),
       ],
       child: MaterialApp(
           title: "My App",

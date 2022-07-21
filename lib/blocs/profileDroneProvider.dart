@@ -7,15 +7,6 @@ class ProfileDroneProvider with ChangeNotifier {
   var phone;
   var address;
 
-  bool isFirstTime = true;
-
-  void setIsFirstTime(bool booleanChange) {
-    //booleanChange = false;
-    isFirstTime = booleanChange;
-    // isFirstTime = false;
-    // notifyListeners();
-  }
-
   void getProfile(var name, var phone, var address) {
     this.name = name;
     this.phone = phone;

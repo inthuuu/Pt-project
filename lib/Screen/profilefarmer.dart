@@ -20,8 +20,6 @@ class ProfileFarmer extends StatefulWidget {
 }
 
 class _ProfileFarmerState extends State<ProfileFarmer> {
-  //final formKey = GlobalKey<FormState>();
-  //final Future<FirebaseApp> firebase = Firebase.initializeApp();
   final _auth = FirebaseAuth.instance;
 
   Profile profile = Profile(name: "", phone: "", address: "", area: "");
@@ -36,7 +34,7 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
             .get(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError) {
+          if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),
             );

@@ -8,13 +8,6 @@ class ProfileProvider with ChangeNotifier {
   var address;
   var area;
 
-  bool isFirstTime = true;
-
-  void setIsFirstTime() {
-    isFirstTime = false;
-    notifyListeners();
-  }
-
   void getProfile(var name, var phone, var address, var area) {
     this.name = name;
     this.phone = phone;

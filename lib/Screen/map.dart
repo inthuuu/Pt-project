@@ -21,11 +21,11 @@ const kGoogleApiKey = "AIzaSyCUk9-9SOgcWJNMpNV8tGncMsVhnqnhNf8";
 class _MapsPageState extends State<MapsPage> {
   late GoogleMapController mapController;
   late CameraPosition kGooglePlex;
-  late Position userLocation;
+  Position? userLocation;
 
   List<Marker> myMarker = [];
-  late LatLng point = LatLng(userLocation.latitude, userLocation.longitude);
-  String _currentAddress = '';
+  late LatLng point =
+      LatLng(userLocation?.latitude ?? 0, userLocation?.longitude ?? 0);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -39,17 +39,9 @@ class _MapsPageState extends State<MapsPage> {
         markerId: MarkerId(tappedPoint.toString()),
         position: tappedPoint,
       ));
+      point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
       _getAddress();
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text('${_currentAddress}  '),
-          );
-        },
-      );
     });
-    point = LatLng(tappedPoint.latitude, tappedPoint.longitude);
   }
 
   //translate latlong to readable address
@@ -58,12 +50,17 @@ class _MapsPageState extends State<MapsPage> {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(point.latitude, point.longitude);
 
-      Placemark place = placemarks[0];
-
-      setState(() {
-        _currentAddress =
-            "${place.street}, ${place.locality}, ${place.postalCode}, ${place.country} \n lat: ${point.latitude}, \n long:${point.longitude}";
-      });
+      Placemark place = placemarks[2];
+      String currentAddress =
+          "${place.street}  ${place.locality}  ${place.subAdministrativeArea}  ${place.administrativeArea}  ${place.postalCode} \n lat: ${point.latitude}, \n long:${point.longitude}";
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text('${currentAddress}  '),
+          );
+        },
+      );
     } catch (e) {
       CircularProgressIndicator();
     }

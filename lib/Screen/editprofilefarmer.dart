@@ -92,7 +92,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         horizontal: 30.0, vertical: 25.0),
                     child: Column(children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 20, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
                         child: Container(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -107,13 +107,14 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                       TextFormField(
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.text,
-                        validator: RequiredValidator(errorText: "โปรดระบุชื่อ"),
+                        validator:
+                            RequiredValidator(errorText: "กรุณากรอกชื่อ"),
                         onSaved: (name) {
                           profile.name = name;
                         },
                         initialValue: provider.name,
                         decoration: InputDecoration(
-                          hintText: 'ชื่อ',
+                          hintText: 'กรุณากรอกชื่อ',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -128,7 +129,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 30, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
                         child: Container(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -144,13 +145,13 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                         validator:
-                            RequiredValidator(errorText: "โปรดระบุเบอร์"),
+                            RequiredValidator(errorText: "กรุณากรอกเบอร์"),
                         onSaved: (phone) {
                           profile.phone = phone;
                         },
                         initialValue: provider.phone,
                         decoration: InputDecoration(
-                          hintText: 'เบอร์',
+                          hintText: 'กรุณากรอกเบอร์',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -165,7 +166,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 30, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
                         child: Container(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -181,13 +182,13 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.text,
                         validator:
-                            RequiredValidator(errorText: "โปรดระบุที่อยู่"),
+                            RequiredValidator(errorText: "กรุณากรอกที่อยู่"),
                         onSaved: (address) {
                           profile.address = address;
                         },
                         initialValue: provider.address,
                         decoration: InputDecoration(
-                          hintText: 'ที่อยู่',
+                          hintText: 'กรุณากรอกที่อยู่',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -202,7 +203,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 30, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
                         child: Container(
                           alignment: Alignment.topLeft,
                           child: Text(
