@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../Widget/bottomNav.dart';
 import '../Widget/bottomNavDroneOwner.dart';
+import '../Widget/bottomNavFarmer.dart';
 
 class whichone extends StatefulWidget {
   const whichone({Key? key}) : super(key: key);
@@ -34,7 +35,8 @@ class _whichoneState extends State<whichone> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BottomNavigation()));
+                          //builder: (context) => BottomNavigation()));
+                          builder: (context) => BottomNavigationFarmer()));
                 });
               },
               child: ClipRRect(

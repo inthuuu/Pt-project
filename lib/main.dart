@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, duplicate_ignore
-import 'package:drone_for_smart_farming/Screen/editProfileroneOwner.dart';
 import 'package:drone_for_smart_farming/blocs/profileDroneProvider.dart';
 import 'package:drone_for_smart_farming/blocs/profileProvider.dart';
 import 'Widget/bottomNav.dart';
@@ -13,6 +12,8 @@ import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
 import 'package:drone_for_smart_farming/service/service_provider.dart';
 import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
 
+import 'Widget/bottomNavFarmer.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -25,11 +26,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Applicationbloc()),
-        ChangeNotifierProvider(create: (context) => BottomNavigationBarProvider()),
         ChangeNotifierProvider(create: (context) => ManageService()),
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
-        ChangeNotifierProvider(create: (context) => BottomNavigationBarProvider2()),
         ChangeNotifierProvider(create: (context) => ProfileDroneProvider()),
+        ChangeNotifierProvider(
+            create: (context) => BottomNavigationBarFarmerProvider()),
+        ChangeNotifierProvider(
+            create: (context) => BottomNavigationBarDroneProvider()),
       ],
       child: MaterialApp(
           title: "My App",

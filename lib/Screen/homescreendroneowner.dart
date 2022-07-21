@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:drone_for_smart_farming/Screen/addDrone.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../Widget/bottomNavDroneOwner.dart';
+import 'package:drone_for_smart_farming/Screen/addDrone.dart';
 import 'package:drone_for_smart_farming/Screen/profileDroneOwner.dart';
-
-import 'editProfileroneOwner.dart';
 
 class HomeScreenDroneOwner extends StatefulWidget {
   const HomeScreenDroneOwner({Key? key}) : super(key: key);
@@ -15,6 +15,7 @@ class HomeScreenDroneOwner extends StatefulWidget {
 class _HomeScreenDroneOwnerState extends State<HomeScreenDroneOwner> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<BottomNavigationBarDroneProvider>(context);
     return Scaffold(
       backgroundColor: Color(0xFF9FE2BF),
       appBar: AppBar(

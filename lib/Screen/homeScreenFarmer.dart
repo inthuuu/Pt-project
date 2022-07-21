@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, duplicate_ignore, unused_local_variable
 
-import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:drone_for_smart_farming/Screen/profileFarmer.dart';
 import 'package:drone_for_smart_farming/Screen/selectService.dart';
+import '../Widget/bottomNavFarmer.dart';
 
 class HomeScreenFarmer extends StatefulWidget {
   const HomeScreenFarmer({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class HomeScreenFarmer extends StatefulWidget {
 class _HomeScreenFarmerState extends State<HomeScreenFarmer> {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<BottomNavigationBarProvider>(context);
+    var provider = Provider.of<BottomNavigationBarFarmerProvider>(context);
     return Scaffold(
       backgroundColor: Color(0xFF9FE2BF),
       appBar: AppBar(

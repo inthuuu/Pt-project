@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../Screen/homeScreenDroneOwner.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:drone_for_smart_farming/Screen/homeScreenFarmer.dart';
 
-class BottomNavigationBarDroneProvider with ChangeNotifier {
+class BottomNavigationBarFarmerProvider with ChangeNotifier {
   int _currentIndex = 0;
 
   int get currentIndex => _currentIndex;
@@ -15,18 +15,18 @@ class BottomNavigationBarDroneProvider with ChangeNotifier {
   }
 }
 
-class BottomNavigationDroneOwner extends StatefulWidget {
-  const BottomNavigationDroneOwner({Key? key}) : super(key: key);
+class BottomNavigationFarmer extends StatefulWidget {
+  const BottomNavigationFarmer({Key? key}) : super(key: key);
 
   @override
-  State<BottomNavigationDroneOwner> createState() => _BottomNavigationState();
+  State<BottomNavigationFarmer> createState() => _BottomNavigationFarmerState();
 }
 
-class _BottomNavigationState extends State<BottomNavigationDroneOwner> {
+class _BottomNavigationFarmerState extends State<BottomNavigationFarmer> {
   List<Widget> currentTab = [
-    HomeScreenDroneOwner(),
-    HomeScreenDroneOwner(),
-    HomeScreenDroneOwner()
+    HomeScreenFarmer(),
+    HomeScreenFarmer(),
+    HomeScreenFarmer()
   ];
   var _selectedTab = _SelectedTab.home;
 
@@ -38,7 +38,7 @@ class _BottomNavigationState extends State<BottomNavigationDroneOwner> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<BottomNavigationBarDroneProvider>(context);
+    var provider = Provider.of<BottomNavigationBarFarmerProvider>(context);
     return Scaffold(
       extendBody: true,
       body: currentTab[provider.currentIndex],
