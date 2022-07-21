@@ -1,19 +1,13 @@
-// ignore_for_file: prefer_const_constructors
-import 'dart:io';
-
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, deprecated_member_use
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone_for_smart_farming/blocs/profileDroneProvider.dart';
 import 'package:drone_for_smart_farming/model/profileDroneOwnerModel.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
 import 'package:drone_for_smart_farming/Screen/editProfileroneOwner.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:provider/provider.dart';
 import '../Widget/bottomNavDroneOwner.dart';
-import '../blocs/profileProvider.dart';
-import '../model/profile.dart';
 
 class ProfileDroneOwner extends StatefulWidget {
   const ProfileDroneOwner({Key? key}) : super(key: key);

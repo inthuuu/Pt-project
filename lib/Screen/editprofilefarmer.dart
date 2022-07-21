@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use
 import 'package:flutter/material.dart';
-import '../Widget/bottomNav.dart';
-import 'homeScreenFarmer.dart';
+import '../Widget/bottomNavFarmer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +9,6 @@ import 'package:provider/provider.dart';
 import '../blocs/profileProvider.dart';
 import '../model/profile.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-
 import 'profilefarmer.dart';
 
 class EditProfileFarmer extends StatefulWidget {
@@ -60,7 +58,7 @@ class _EditProfileFarmerState extends State<EditProfileFarmer> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BottomNavigation()));
+                                builder: (context) => BottomNavigationFarmer()));
                       },
                       backgroundColor: Colors.white,
                       child: Icon(

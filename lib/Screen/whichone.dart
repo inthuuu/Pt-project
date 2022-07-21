@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, avoid_unnecessary_containers
 import 'package:flutter/material.dart';
-import '../Widget/bottomNav.dart';
 import '../Widget/bottomNavDroneOwner.dart';
 import '../Widget/bottomNavFarmer.dart';
 
@@ -35,7 +34,6 @@ class _whichoneState extends State<whichone> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          //builder: (context) => BottomNavigation()));
                           builder: (context) => BottomNavigationFarmer()));
                 });
               },

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
 import 'package:drone_for_smart_farming/blocs/profileDroneProvider.dart';

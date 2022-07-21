@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, duplicate_ignore
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, duplicate_ignore, library_private_types_in_public_api
 import 'package:drone_for_smart_farming/blocs/profileDroneProvider.dart';
 import 'package:drone_for_smart_farming/blocs/profileProvider.dart';
-import 'Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,7 +10,6 @@ import 'package:drone_for_smart_farming/Screen/whichone.dart';
 import 'package:drone_for_smart_farming/blocs/application_bloc.dart';
 import 'package:drone_for_smart_farming/service/service_provider.dart';
 import 'package:drone_for_smart_farming/Widget/bottomNavDroneOwner.dart';
-
 import 'Widget/bottomNavFarmer.dart';
 
 void main() async {
@@ -69,7 +67,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => BottomNavigationBarProvider(),
+      create: (context) => BottomNavigationBarFarmerProvider(),
       child: isLoading
           ? Scaffold(
               body: Center(

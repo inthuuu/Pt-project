@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names
+import 'package:drone_for_smart_farming/Screen/droneList.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Screen/homeScreenDroneOwner.dart';
@@ -25,16 +26,9 @@ class BottomNavigationDroneOwner extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigationDroneOwner> {
   List<Widget> currentTab = [
     HomeScreenDroneOwner(),
-    HomeScreenDroneOwner(),
+    DroneList(),
     HomeScreenDroneOwner()
   ];
-  var _selectedTab = _SelectedTab.home;
-
-  void _handleIndexChanged(int i) {
-    setState(() {
-      _selectedTab = _SelectedTab.values[i];
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +40,16 @@ class _BottomNavigationState extends State<BottomNavigationDroneOwner> {
         padding: EdgeInsets.only(bottom: 10),
         child: DotNavigationBar(
           margin: EdgeInsets.only(left: 10, right: 10),
-          currentIndex: _SelectedTab.values.indexOf(_selectedTab),
+          currentIndex: provider.currentIndex,
+          //_SelectedTab.values.indexOf(_selectedTab),
           dotIndicatorColor: Colors.white,
           unselectedItemColor: Colors.grey[300],
           // enableFloatingNavBar: false,
-          onTap: _handleIndexChanged,
+          onTap: (index) {
+            setState(() {
+              provider.currentIndex = index;
+            });
+          },
           items: [
             /// Home
             DotNavigationBarItem(
@@ -58,21 +57,15 @@ class _BottomNavigationState extends State<BottomNavigationDroneOwner> {
               selectedColor: Color(0xff2f574b),
             ),
 
-            /// Likes
-            DotNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              selectedColor: Color(0xff2f574b),
-            ),
-
             /// Search
             DotNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.menu),
               selectedColor: Color(0xff2f574b),
             ),
 
             /// Profile
             DotNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Icon(Icons.chat_rounded),
               selectedColor: Color(0xff2f574b),
             ),
           ],
@@ -82,4 +75,3 @@ class _BottomNavigationState extends State<BottomNavigationDroneOwner> {
   }
 }
 
-enum _SelectedTab { home, favorite, search, person }

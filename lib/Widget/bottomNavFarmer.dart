@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:drone_for_smart_farming/Screen/homeScreenFarmer.dart';
+import '../Screen/selectService.dart';
 
 class BottomNavigationBarFarmerProvider with ChangeNotifier {
   int _currentIndex = 0;
@@ -28,13 +29,6 @@ class _BottomNavigationFarmerState extends State<BottomNavigationFarmer> {
     HomeScreenFarmer(),
     HomeScreenFarmer()
   ];
-  var _selectedTab = _SelectedTab.home;
-
-  void _handleIndexChanged(int i) {
-    setState(() {
-      _selectedTab = _SelectedTab.values[i];
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +40,15 @@ class _BottomNavigationFarmerState extends State<BottomNavigationFarmer> {
         padding: EdgeInsets.only(bottom: 10),
         child: DotNavigationBar(
           margin: EdgeInsets.only(left: 10, right: 10),
-          currentIndex: _SelectedTab.values.indexOf(_selectedTab),
+          currentIndex: provider.currentIndex,
           dotIndicatorColor: Colors.white,
           unselectedItemColor: Colors.grey[300],
           // enableFloatingNavBar: false,
-          onTap: _handleIndexChanged,
+          onTap: (index) {
+            setState(() {
+              provider.currentIndex = index;
+            });
+          },
           items: [
             /// Home
             DotNavigationBarItem(
@@ -58,21 +56,15 @@ class _BottomNavigationFarmerState extends State<BottomNavigationFarmer> {
               selectedColor: Color(0xff2f574b),
             ),
 
-            /// Likes
-            DotNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              selectedColor: Color(0xff2f574b),
-            ),
-
             /// Search
             DotNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.add),
               selectedColor: Color(0xff2f574b),
             ),
 
             /// Profile
             DotNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Icon(Icons.chat_rounded),
               selectedColor: Color(0xff2f574b),
             ),
           ],
@@ -81,5 +73,3 @@ class _BottomNavigationFarmerState extends State<BottomNavigationFarmer> {
     );
   }
 }
-
-enum _SelectedTab { home, favorite, search, person }

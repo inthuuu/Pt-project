@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, avoid_print, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, unnecessary_new, avoid_print, avoid_unnecessary_containers, sort_child_properties_last, deprecated_member_use
 import 'dart:io';
 import 'package:drone_for_smart_farming/Screen/droneList.dart';
 import 'package:drone_for_smart_farming/Screen/map.dart';

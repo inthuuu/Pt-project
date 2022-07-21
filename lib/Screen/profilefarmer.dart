@@ -1,15 +1,13 @@
-// ignore_for_file: prefer_const_constructors, avoid_types_as_parameter_names
+// ignore_for_file: prefer_const_constructors, avoid_types_as_parameter_names, deprecated_member_use, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone_for_smart_farming/blocs/profileProvider.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import '../Widget/bottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:drone_for_smart_farming/Screen/login.dart';
 import 'package:drone_for_smart_farming/Screen/editProfileFarmer.dart';
-
+import '../Widget/bottomNavFarmer.dart';
 import '../model/profile.dart';
 
 class ProfileFarmer extends StatefulWidget {
@@ -58,7 +56,7 @@ class _ProfileFarmerState extends State<ProfileFarmer> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BottomNavigation()));
+                                builder: (context) => BottomNavigationFarmer()));
                       },
                       backgroundColor: Colors.white,
                       child: Icon(

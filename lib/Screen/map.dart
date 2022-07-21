@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, unnecessary_brace_in_string_interps, sort_child_properties_last, depend_on_referenced_packages, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers, deprecated_member_use
 import 'package:drone_for_smart_farming/Screen/addDrone.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -61,6 +61,7 @@ class _MapsPageState extends State<MapsPage> {
           );
         },
       );
+      print(placemarks);
     } catch (e) {
       CircularProgressIndicator();
     }

@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, sort_child_properties_last, deprecated_member_use
 import 'package:drone_for_smart_farming/Screen/drawPolygon.dart';
 import 'package:drone_for_smart_farming/Widget/calendar.dart';
 import 'package:drone_for_smart_farming/Widget/checkbox.dart';
 import 'package:flutter/material.dart';
-import '../Widget/bottomNav.dart';
+import '../Widget/bottomNavFarmer.dart';
 import '../Widget/timePicker.dart';
 
 class SelectService extends StatefulWidget {
@@ -33,7 +33,7 @@ class _SelectServiceState extends State<SelectService> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BottomNavigation()));
+                            builder: (context) => BottomNavigationFarmer()));
                   },
                   backgroundColor: Colors.white,
                   child: Icon(

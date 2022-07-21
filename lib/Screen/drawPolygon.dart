@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, sort_child_properties_last, deprecated_member_use, no_leading_underscores_for_local_identifiers, depend_on_referenced_packages
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
